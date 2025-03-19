@@ -1,0 +1,15 @@
+@media (max-width: 768px) {
+  .home-page {
+    h1 {
+      font-size: 1.875rem;
+    }
+
+    .button-container {
+      flex-direction: column;
+    }
+  }
+
+  .book-list, .add-book-form {
+    padding: 0 1rem;
+  }
+}

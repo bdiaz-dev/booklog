@@ -1,4 +1,7 @@
+import { useRouter } from "next/navigation"
 export function useAddBook() {
+  const router
+   = useRouter()
 
   const handleAddBook = async (book) => {
     try {
@@ -12,15 +15,16 @@ export function useAddBook() {
           thumbnail: book.volumeInfo.imageLinks?.thumbnail || null,
         }),
       })
-      if (response.ok) {
-        // router.push("/reading-list")
-        console.log(`book ${book.volumeInfo.title} added`)
-      } else {
-        console.error("Error adding book")
+      if (!response.ok) {
+        const error = new Error("Error adding book")
+        throw error
       }
+      router.refresh()
+      console.log(`book ${book.volumeInfo.title} added`)
       return response
     } catch (error) {
       console.error("Error adding book:", error)
+      throw error
     }
   }
 

@@ -1,0 +1,30 @@
+.book-item {
+  display: flex;
+  gap: 1.5rem;
+  
+  &-info {
+    // display: flex;
+    // flex-direction: column;
+    // justify-content: start;
+    // gap: .5rem;
+    &-title {
+      font-weight: bolder;
+      font-size: 1.2rem;
+    }
+    &-author {
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+  }
+  
+  &-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: .5rem;
+  }
+  
+  &-user-info {
+    margin-top: .5rem;
+    font-weight: bold;
+  }
+}

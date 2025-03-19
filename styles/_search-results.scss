@@ -1,0 +1,27 @@
+.search-results {
+  margin-top: 1rem;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border: 1px solid $border-color;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+
+      .book-info {
+        flex-grow: 1;
+      }
+
+      button {
+        @extend .button;
+        @extend .secondary;
+      }
+    }
+  }
+}

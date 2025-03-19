@@ -12,11 +12,26 @@ export async function POST(req: Request) {
   const { bookId } = await req.json()
 
   try {
-    await prisma.book.delete({
-      where: { googleId: bookId },
+    // Primero, busca el libro con las condiciones dadas
+    const book = await prisma.book.findFirst({
+      where: {
+        googleId: bookId,
+        userId: session.user.id,
+      },
     })
+
+    if (!book) {
+      return NextResponse.json({ error: "Book not found" }, { status: 404 })
+    }
+
+    // Luego, usa el ID del libro encontrado para realizar la eliminación
+    await prisma.book.delete({
+      where: { id: book.id },
+    })
+
     return NextResponse.json({ message: "Book removed" })
   } catch (error) {
+    console.error("Failed to remove book:", error)
     return NextResponse.json({ error: "Failed to remove book" }, { status: 500 })
   }
 }

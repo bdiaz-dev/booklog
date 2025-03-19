@@ -2,6 +2,9 @@ import Link from "next/link"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
+import "@/public/books.svg"
+import Image from 'next/image'
+import UserListsContainer from '@/components/UserListsContainer'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -25,23 +28,14 @@ export default async function Home() {
 
   return (
     <div className="home-page">
-      <h1>Registro de Lectura</h1>
-      <div className="button-container">
-        <Link href="/reading-list" className="button primary">
-          Lista de Lectura
-          <span className="book-count">{unreadBooks} libros</span>
-        </Link>
-        <Link href="/read-books" className="button secondary">
-          Libros Leídos
-          <span className="book-count">{readBooks} libros</span>
-        </Link>
-        {/* <Link href="/add-book" className="button primary">
-          Añadir Nuevo Libro
-        </Link> */}
+      <header className='header'>
+      <span>Registro de Lectura</span>
         <Link href="/api/auth/signout" className="button secondary">
           Cerrar Sesión
         </Link>
-      </div>
+      </header>
+        <UserListsContainer readBooksCount={readBooks} readingBooksCount={unreadBooks}/>
+        
     </div>
   )
 }

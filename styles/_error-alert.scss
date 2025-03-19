@@ -1,0 +1,12 @@
+.error-alert {
+  padding: .1rem 2rem;
+  background-color: $danger-color;
+  color: white;
+  font-weight: bolder;
+  border-radius: 50px;
+  margin-bottom: 1rem;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}

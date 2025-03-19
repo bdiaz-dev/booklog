@@ -1,0 +1,60 @@
+.book-list {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+
+  h2 {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+
+    .li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem;
+      border: 1px solid $border-color;
+      border-radius: 0.25rem;
+      margin-bottom: 0.5rem;
+      
+      .book-on-list {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .book-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+
+        .book-title {
+          font-weight: bold;
+        }
+
+        .book-author {
+          font-size: 0.875rem;
+          color: adjust-color($text-color, $lightness: 20%);
+        }
+      }
+
+      .book-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+.lists-buttons-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+
+  &.primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover {
+      background-color: adjust-color($primary-color, $lightness: -10%);
+    }
+  }
+
+  &.secondary {
+    background-color: $secondary-color;
+    color: white;
+
+    &:hover {
+      background-color: adjust-color($secondary-color, $lightness: -10%);
+    }
+  }
+  &.info {
+    background-color: $info-color;
+    color: white;
+
+    &:hover {
+      background-color: adjust-color($secondary-color, $lightness: -10%);
+    }
+  }
+  &.danger {
+    background-color: $danger-color;
+    color: white;
+
+    &:hover {
+      background-color: adjust-color($danger-color, $lightness: +10%);
+    }
+  }
+
+  .book-count {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    padding: 0.1rem 0.6rem;
+    margin-left: 1rem;
+    border: 1px solid white;
+    border-radius: 50%;
+  }
+}

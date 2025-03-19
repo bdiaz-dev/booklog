@@ -6,18 +6,32 @@ import { prisma } from "@/lib/prisma"
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions)
   if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 })
   }
 
-  const { bookId } = await req.json()
+  const { bookId, feedback, readedDate } = await req.json()
+  console.log("googleid", bookId, "rating", feedback, "fecha", readedDate, "usuario", session.user.id)
 
   try {
-    await prisma.book.update({
-      where: { id: bookId },
-      data: { isRead: true, readedDate: new Date().toISOString() },
+    const book = await prisma.book.findFirst({
+      where: {
+        googleId: bookId,
+        userId: session.user.id,
+      },
     })
-    return NextResponse.json({ message: "Book marked as read" })
+
+    if (!book) {
+      return NextResponse.json({ ok: false, error: "Book not found" }, { status: 404 })
+    }
+
+    await prisma.book.update({
+      where: { id: book.id },
+      data: { isRead: true, readedDate, rating: feedback },
+    })
+
+    return NextResponse.json({ ok: true, message: "Book marked as read" })
   } catch (error) {
-    return NextResponse.json({ error: "Failed to mark book as read" }, { status: 500 })
+    console.log("error", error)
+    return NextResponse.json({ ok: false, error: "Failed to mark book as read" }, { status: 500 })
   }
 }

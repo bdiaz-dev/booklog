@@ -9,7 +9,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const { title, author, googleId, thumbnail, addedDate } = await req.json()
+  const { title, author, googleId, thumbnail } = await req.json()
 
   try {
     const book = await prisma.book.create({
