@@ -40,6 +40,7 @@ export default function AddBook() {
               <li key={book.id}>
                 <BookItem
                   book={book}
+                  isSearch
                 />
               </li>
             ))}

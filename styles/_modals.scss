@@ -11,17 +11,21 @@
   align-items: center;
   background-color: $fallback-color;
 
-  div {
-    width: 100px;
-    display: flex;
-    justify-content: center;
-  }
+  // div {
+  //   width: 100px;
+  //   height: 50px;
+  //   display: flex;
+  //   justify-content: center;
+  // }
   span {
     font-weight: bolder;
+    color: white;
+    text-shadow: black 1px 1px 1px;
   }
 }
 
-.info-modal, .feedback-modal {
+.info-modal,
+.feedback-modal {
   // display: block;
   /* Hidden by default */
   position: fixed;
@@ -41,7 +45,7 @@
   background-color: $fallback-color;
   /* Black w/ opacity */
   // padding-top: 60px;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,30 +93,32 @@
 
 
   }
-  
-  &-buttons, &-date {
+
+  &-buttons,
+  &-date {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
-    
+
     button {
       font-size: 1.5rem;
       padding: 10px 12px;
     }
-    
+
     span {
       font-weight: bolder;
       font-size: 1.2rem;
     }
-    
+
     #readedToday {
       width: 1.5rem;
     }
-    
+
     &-personal {
       flex-basis: 100%;
       display: flex;
+
       input {
         margin: auto;
         font-size: 1.2rem;
@@ -133,22 +139,81 @@
       // border-radius: 10px;
       // float: inline-start;
       display: flex;
-      margin-right: 1rem;
+      margin-right: 2rem;
     }
   }
 
   &-info {
     flex: 1;
-  }
+    margin-right: 2rem;
 
+    &-title {
+      font-size: 2rem;
+      font-style: oblique;
+      font-weight: bolder;
+      margin-bottom: 0;
+    }
+
+    &-author {
+      font-size: 1.5rem;
+      font-style: oblique;
+      font-weight: normal;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    &-categories {
+      font-size: 0.8rem;
+      font-style: oblique;
+      span {
+        font-weight: bold;
+      }
+    }
+
+    &-details {
+      margin-top: 2.5rem;
+      // margin: 1rem auto auto auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      // flex-direction: column;
+      gap: 1rem;
+
+      div {
+        border: black 1px solid;
+        border-radius: 10px;
+        padding: 10px 15px;
+
+        h5 {
+          margin: auto;
+          font-size: 1rem;
+        }
+        
+        p {
+        margin: auto;
+        }
+      }
+    }
+
+  }
+  
+  
+  &-rating-title {
+    text-align: center;
+  }
+  
   &-rating {
     display: flex;
+    justify-content: center;
     gap: 1rem;
+    margin-bottom: 2rem;
 
     div {
       background-color: lightblue;
       border-radius: 10px;
-      padding: 5px 8px;
+      padding: 8px 16px;
+      font-size: 1.2rem;
+      font-weight: bold;
     }
   }
 }

@@ -1,16 +1,26 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { useBookData } from '@/context/BookDataContext'
 import BookItem from '../BookItem'
 import { AnimatePresence, motion } from 'framer-motion'
+import Loading from '../Loading'
+import { Mosaic } from 'react-loading-indicators'
 
-export default function BookList({ isReadingList }) {
+export default function BookList({ isReadingList, setIsLoading }) {
   const { readedList, readingList, loading, error } = useBookData()
   const [searchTerm, setSearchTerm] = useState("")
   const [sortCriteria, setSortCriteria] = useState("title")
   const [sortAscendent, setSortAscendent] = useState(true)
   const books = isReadingList ? readingList : readedList
+
+  useEffect(() => {
+    setIsLoading(loading)
+  }, [loading])
+
+  if (loading) return (<Loading isInitial />)
+  // setIsLoading(false)
+  if (error) return <div>Error: {error}</div>
 
   const filteredBooks = books.filter(
     (book) =>
@@ -32,8 +42,6 @@ export default function BookList({ isReadingList }) {
     return 0
   })
 
-  if (loading) return <div>Cargando...</div>
-  if (error) return <div>Error: {error}</div>
 
   return (
     <div className="book-list">
@@ -44,31 +52,30 @@ export default function BookList({ isReadingList }) {
         onChange={(e) => setSearchTerm(e.target.value)}
         className="search-input"
       />
-      <button className='button info' onClick={() => setSortCriteria("title")}>A-Z</button>
-      {isReadingList
-        ? (
-        <button className='button info' onClick={() => setSortCriteria("addedDate")}>Fecha Añadido</button>
-        )
-        : (
-      <button className='button info' onClick={() => setSortCriteria("readedDate")}>Fecha Lectura</button>
-        )}
+      <div className='sort-buttons'>
+        <button className={`button ${sortCriteria === "title" ? "active" : "info"}`} onClick={() => setSortCriteria("title")}>A-Z</button>
+        {isReadingList
+          ? (<button className={`button ${sortCriteria === "addedDate" ? "active" : "info"}`} onClick={() => setSortCriteria("addedDate")}>Fecha Añadido</button>)
+          : (<button className={`button ${sortCriteria === "readedDate" ? "active" : "info"}`} onClick={() => setSortCriteria("readedDate")}>Fecha Lectura</button>)
+        }
         <button className='button info' onClick={() => setSortAscendent(!sortAscendent)}>
           {sortAscendent ? 'Orden Ascendente' : 'Orden Descendente'}
         </button>
+      </div>
       <ul>
-        <AnimatePresence>
+        {/* <AnimatePresence> */}
           {!sortedBooks.length && <li>Aqui no hay nada ... 😕</li>}
           {sortedBooks.map((book) => (
-            <motion.li
+            <li
               key={book.googleId}
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              exit={{ scaleY: 0 }}
+              // initial={{ scaleY: 0 }}
+              // animate={{ scaleY: 1 }}
+              // exit={{ scaleY: 0 }}
             >
               <BookItem book={book} />
-            </motion.li>
+            </li>
           ))}
-        </AnimatePresence>
+        {/* </AnimatePresence> */}
       </ul>
     </div>
   )

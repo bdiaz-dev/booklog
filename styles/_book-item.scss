@@ -3,10 +3,10 @@
   gap: 1.5rem;
   
   &-info {
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: start;
-    // gap: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: .5rem;
     &-title {
       font-weight: bolder;
       font-size: 1.2rem;
@@ -14,6 +14,14 @@
     &-author {
       font-style: italic;
       font-size: 1.1rem;
+      // margin-bottom: 1.5rem;
+    }
+    
+    button {
+      // flex-grow: 0;
+      // flex-shrink: 0;
+      width: fit-content;
+      // flex-basis: auto;
     }
   }
   
@@ -24,7 +32,10 @@
   }
   
   &-user-info {
-    margin-top: .5rem;
+    // margin-top: .5rem;
     font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
   }
 }

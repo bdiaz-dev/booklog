@@ -37,7 +37,7 @@
     color: white;
 
     &:hover {
-      background-color: adjust-color($secondary-color, $lightness: -10%);
+      background-color: adjust-color($info-color, $lightness: +10%);
     }
   }
   &.danger {
@@ -46,6 +46,15 @@
 
     &:hover {
       background-color: adjust-color($danger-color, $lightness: +10%);
+    }
+  }
+  &.active {
+    background-color: $active-color;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      background-color: adjust-color($active-color, $lightness: +10%);
     }
   }
 

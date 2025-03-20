@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma"
 import "@/public/books.svg"
 import Image from 'next/image'
 import UserListsContainer from '@/components/UserListsContainer'
+import { BookDataProvider } from '@/context/BookDataContext'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)

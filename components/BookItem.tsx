@@ -13,7 +13,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 // interface BookItemProps { book: Book }
 
-export default function BookItem({ book }: { book: any }) {
+export default function BookItem({ book, isSearch = false }: { book: any, isSearch?: boolean }) {
 
   const [showInfo, setShowInfo] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
@@ -30,7 +30,7 @@ export default function BookItem({ book }: { book: any }) {
         <motion.div
           className='li'
           style={{ overflow: "hidden" }}
-          layout
+          layout={!isSearch}
           key={book.id}
           initial={{ height: 0 }}
           animate={{ height: "auto" }}
@@ -39,7 +39,7 @@ export default function BookItem({ book }: { book: any }) {
         >
           <motion.div
             key={book.id + "item"}
-            layout
+            layout={!isSearch}
             // initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
             exit={{ scaleY: 0 }}
@@ -60,16 +60,16 @@ export default function BookItem({ book }: { book: any }) {
             <div>
               <div className="book-item-info">
                 <span className="book-item-info-title">{book.title || book.volumeInfo?.title}</span>
-                <br />
+                {/* <br /> */}
                 <span className="book-item-info-author">{book.author || (book.volumeInfo?.authors ? book.volumeInfo.authors.join(", ") : "Autor desconocido")}</span>
-                <br />
+                {/* <br /> */}
                 <button
                   onClick={() => setShowInfo(!showInfo)}
                   className="button info"
                 >
                   + Info
                 </button>
-                <br />
+                {/* <br /> */}
                 {readingBook &&
                   <span className='book-item-user-info'>
                     📚 Añadido el: {readingBook.addedDate.split("T")[0]}
