@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { Mosaic } from 'react-loading-indicators'
 
 interface LoadingProps {
-  setModal: () => void
+  setModal?: () => void
   isInitial?: boolean
 }
 

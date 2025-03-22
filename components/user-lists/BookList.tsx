@@ -6,8 +6,14 @@ import BookItem from '../BookItem'
 import { AnimatePresence, motion } from 'framer-motion'
 import Loading from '../Loading'
 import { Mosaic } from 'react-loading-indicators'
+import { filterAndSortBooks } from '@/lib/listUtils'
 
-export default function BookList({ isReadingList, setIsLoading }) {
+interface BookListProps {
+  setIsLoading: (loading: boolean) => void
+  isReadingList?: boolean
+}
+
+export default function BookList({ isReadingList, setIsLoading } : BookListProps) {
   const { readedList, readingList, loading, error } = useBookData()
   const [searchTerm, setSearchTerm] = useState("")
   const [sortCriteria, setSortCriteria] = useState("title")
@@ -22,26 +28,7 @@ export default function BookList({ isReadingList, setIsLoading }) {
   // setIsLoading(false)
   if (error) return <div>Error: {error}</div>
 
-  const filteredBooks = books.filter(
-    (book) =>
-      book?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book?.author?.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
-
-  const sortedBooks = filteredBooks.sort((a, b) => {
-    if (sortCriteria === "title") {
-      if (sortAscendent) return a.title.localeCompare(b.title)
-      else return b.title.localeCompare(a.title)
-    } else if (sortCriteria === "readedDate") {
-      if (sortAscendent) return new Date(a.readedDate) - new Date(b.readedDate)
-      else return new Date(b.readedDate) - new Date(a.readedDate)
-    } else if (sortCriteria === "addedDate") {
-      if (sortAscendent) return new Date(a.addedDate) - new Date(b.addedDate)
-      else return new Date(b.addedDate) - new Date(a.addedDate)
-    }
-    return 0
-  })
-
+  const sortedBooks = filterAndSortBooks(books, searchTerm, sortCriteria, sortAscendent)
 
   return (
     <div className="book-list">

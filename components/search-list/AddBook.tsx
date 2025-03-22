@@ -1,7 +1,5 @@
 "use client"
 import { useBookSearch } from '@/hooks/useBookSearch'
-import ReturnHome from '@/components/buttons/returnHome'
-import BookElement from '@/components/BookElement'
 import { useBookData } from '@/context/BookDataContext'
 import BookItem from '../BookItem'
 
@@ -16,10 +14,7 @@ export default function AddBook() {
   } = useBookSearch()
 
   return (
-    // <BookListsProvider>
     <div className="add-book-form">
-      {/* <ReturnHome /> */}
-      {/* <h2>Añadir Libro</h2> */}
       <form onSubmit={handleSearch}>
         <input
           type="text"
@@ -50,6 +45,5 @@ export default function AddBook() {
         )}
       </div>
     </div>
-    // </BookListsProvider>
   )
 }

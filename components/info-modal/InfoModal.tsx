@@ -13,7 +13,7 @@ interface InfoModalProps {
 }
 
 export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
-  const { formatedBookData, isLoading, setIsLoading } = useGetOneBookData(book)
+  const { formatedBookData, isLoading } = useGetOneBookData(book)
   const bookId = !!book.userId ? book.googleId : book.id
   const { ratings } = useUsersRatings(bookId)
 
@@ -51,7 +51,6 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
         className="info-modal-content"
       >
         <span className="close" onClick={() => setShowInfo(false)}>&times;</span>
-        {/* <h2>Información del libro</h2> */}
         <div className="info-modal-body">
           <div className="info-modal-image">
             <img src={formatedBookData.image || placeholderImg} alt="Book cover" />
@@ -60,10 +59,7 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
             <h3 className='info-modal-info-title'>{formatedBookData.title}</h3>
             <h4 className='info-modal-info-author'>{formatedBookData.autor}</h4>
             <div className='info-modal-info-description' dangerouslySetInnerHTML={{ __html: formatedBookData.description }} />
-              {/* <div> */}
-                {/* <h5>Categorías</h5> */}
             <p className='info-modal-info-categories'><span>* Categorias: </span>{formatedBookData.categories}</p>
-              {/* </div> */}
             <div className='info-modal-info-details'>
               <div>
                 <h5>Páginas</h5>

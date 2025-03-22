@@ -60,16 +60,13 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
             <div>
               <div className="book-item-info">
                 <span className="book-item-info-title">{book.title || book.volumeInfo?.title}</span>
-                {/* <br /> */}
                 <span className="book-item-info-author">{book.author || (book.volumeInfo?.authors ? book.volumeInfo.authors.join(", ") : "Autor desconocido")}</span>
-                {/* <br /> */}
                 <button
                   onClick={() => setShowInfo(!showInfo)}
                   className="button info"
                 >
                   + Info
                 </button>
-                {/* <br /> */}
                 {readingBook &&
                   <span className='book-item-user-info'>
                     📚 Añadido el: {readingBook.addedDate.split("T")[0]}
@@ -79,12 +76,6 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                     ✅ Leído el: {readedBook.readedDate.split("T")[0]}
                     {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>}
                   </span>}
-                {/* <div>
-            <p>Valoraciones Usuarios</p>
-            <p>{`${ratingEmojis.like} : ${ratings.like}`}</p>
-            <p>{`${ratingEmojis.normal} : ${ratings.normal}`}</p>
-            <p>{`${ratingEmojis.dislike} : ${ratings.dislike}`}</p>
-          </div> */}
               </div>
               <div className="book-item-actions">
                 <>
