@@ -138,6 +138,9 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
             <h3 className='info-modal-rating-title'>Valoración de los usuarios</h3>
             <div className="info-modal-rating">
               <div>
+                <span>{`${ratingEmojis.wonderfull}  ${ratings.wonderfull}`}</span>
+              </div>
+              <div>
                 <span>{`${ratingEmojis.like}  ${ratings.like}`}</span>
               </div>
               <div>

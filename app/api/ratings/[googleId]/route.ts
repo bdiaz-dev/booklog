@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../../../lib/prisma';
 
 interface RatingCount {
+  wonderfull: number;
   like: number;
   normal: number;
   dislike: number;
@@ -20,11 +21,13 @@ export async function GET(req: NextRequest, { params }: { params: { googleId: st
       select: { rating: true },
     });
 
-    const ratingsCount: RatingCount = { like: 0, normal: 0, dislike: 0 };
+    const ratingsCount: RatingCount = { wonderfull: 0, like: 0, normal: 0, dislike: 0 };
 
     ratingsData.forEach((book) => {
       const ratingValue = book.rating;
-      if (ratingValue === 'like') {
+      if (ratingValue === 'wonderfull') {
+        ratingsCount.wonderfuml++;
+      } else if (ratingValue === 'like') {
         ratingsCount.like++;
       } else if (ratingValue === 'normal') {
         ratingsCount.normal++;

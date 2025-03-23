@@ -7,7 +7,8 @@ export type ratingEmojis = {
 }
 
 export   const ratingEmojis = {
-  like: "🤩",
-  normal: "😐",
+  wonderfull: "😍",
+  like: "😃",
+  normal: "😑",
   dislike: "😡"
 }

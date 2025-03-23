@@ -10,7 +10,6 @@ export async function POST(req: Request) {
   }
 
   const { bookId, feedback, readedDate } = await req.json()
-  // console.log("googleid", bookId, "rating", feedback, "fecha", readedDate, "usuario", session.user.id)
 
   try {
     const book = await prisma.book.findFirst({
@@ -26,12 +25,12 @@ export async function POST(req: Request) {
 
     await prisma.book.update({
       where: { id: book.id },
-      data: { isRead: true, readedDate, rating: feedback },
+      data: { readedDate, rating: feedback },
     })
 
-    return NextResponse.json({ ok: true, message: "Book marked as read" })
+    return NextResponse.json({ ok: true, message: "Book rating and read date updated" })
   } catch (error) {
     console.log("error", error)
-    return NextResponse.json({ ok: false, error: "Failed to mark book as read" }, { status: 500 })
+    return NextResponse.json({ ok: false, error: "Failed to update book rating and read date" }, { status: 500 })
   }
 }

@@ -52,7 +52,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
             {showError && <ErrorAlert />}
             <AnimatePresence>
               // poner modal confirmando que se ha marcado como leido
-              {showFeedback && <Feedback book={readingBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
+              {showFeedback && <Feedback book={!!readingBook ? readingBook : readedBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
             </AnimatePresence>
             <div className='book-item-img'>
               <img onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
@@ -98,6 +98,15 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                     )
                     )}
                 </>
+                
+                {!!readedBook &&
+                <button
+                  onClick={() => setShowFeedback(true)}
+                  className="button primary"
+                >
+                  Editar
+                  </button>
+                  }
 
                 {(!!readedBook || !!readingBook) && (
                   <button

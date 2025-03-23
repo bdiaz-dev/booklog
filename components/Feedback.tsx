@@ -24,15 +24,26 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
       // setIsDeleting(true)
 
       const bookToChange = readingList.find((b) => b.googleId === bookid)
-      Object.assign(bookToChange, {
-        rating: response,
-        readedDate: readedDate,
-        isRead: true
-      })
-      setReadedList([...readedList, bookToChange])
-      setReadingList(readingList.filter((b) => b.googleId !== bookToChange.googleId))
-      setMessage("Libro marcado como leído con éxito.")
-      setShowFeedback(false)
+      if (!!bookToChange) {
+        Object.assign(bookToChange, {
+          rating: response,
+          readedDate: readedDate,
+          isRead: true
+        })
+        setReadedList([...readedList, bookToChange])
+        setReadingList(readingList.filter((b) => b.googleId !== bookToChange.googleId))
+        setMessage("Libro marcado como leído con éxito.")
+      } else {
+        const bookToChange = readedList.find((b) => b.googleId === bookid)
+        if (!!bookToChange) {
+          Object.assign(bookToChange, {
+            rating: response,
+            readedDate: readedDate,
+            isRead: true
+          })
+          setReadedList(readedList.map((b) => b.googleId === bookid ? bookToChange : b))
+        }}
+        setShowFeedback(false)
       // setTimeout(() => router.refresh(), 30000)
     } else {
       if (handleError !== null) {
@@ -40,7 +51,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
       }
       setMessage(`Error: ${result.error}`)
     }
-      // setIsDeleting(false)
+    // setIsDeleting(false)
   }
 
 
@@ -65,13 +76,16 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
         <h2>¿Te ha gustado?</h2>
         {/* <br /> */}
         <div className='feedback-modal-buttons'>
-          <button onClick={() => handleFeedback("like")} className="button primary">
+          <button onClick={() => handleFeedback("wonderfull")} className="button info">
+            {ratingEmojis.wonderfull}
+          </button>
+          <button onClick={() => handleFeedback("like")} className="button info">
             {ratingEmojis.like}
           </button>
-          <button onClick={() => handleFeedback("normal")} className="button primary">
+          <button onClick={() => handleFeedback("normal")} className="button info">
             {ratingEmojis.normal}
           </button>
-          <button onClick={() => handleFeedback("dislike")} className="button primary">
+          <button onClick={() => handleFeedback("dislike")} className="button info">
             {ratingEmojis.dislike}
           </button>
         </div>
