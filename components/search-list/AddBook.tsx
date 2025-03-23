@@ -16,12 +16,17 @@ export default function AddBook() {
   return (
     <div className="add-book-form">
       <form onSubmit={handleSearch}>
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Buscar libros en Google Books..."
-        />
+        <div className='add-book-form-input'>
+          <input
+            type="text"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            placeholder="Buscar libros en Google Books..."
+          />
+          <button onClick={() => setSearchTerm("")} type="button" className="button danger">
+            ✖
+          </button>
+        </div>
         <button type="submit" className="button primary" disabled={isLoading}>
           {isLoading ? "Buscando..." : "Buscar"}
         </button>

@@ -2,21 +2,28 @@
   display: flex;
   gap: 1.5rem;
   
+  &-img {
+    cursor: pointer;
+  }
+
   &-info {
     display: flex;
     flex-direction: column;
     justify-content: start;
     gap: .5rem;
+
     &-title {
       font-weight: bolder;
       font-size: 1.2rem;
+      cursor: pointer;
     }
+
     &-author {
       font-style: italic;
       font-size: 1.1rem;
       // margin-bottom: 1.5rem;
     }
-    
+
     button {
       // flex-grow: 0;
       // flex-shrink: 0;
@@ -24,13 +31,13 @@
       // flex-basis: auto;
     }
   }
-  
+
   &-actions {
     display: flex;
     gap: 1rem;
     margin-top: .5rem;
   }
-  
+
   &-user-info {
     // margin-top: .5rem;
     font-weight: bold;

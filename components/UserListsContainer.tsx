@@ -24,16 +24,25 @@ export default function UserListsContainer({ readBooksCount, readingBooksCount }
       <div className="container">
         {!isLoading && (
           <>
-            <h2>{isReadingList ? 'Lista de lectura' : 'Libros leidos'}</h2>
+            <h2>{isAddingBook ? 'Añadir nuevo libro' : isReadingList ? 'Lista de lectura' : 'Libros leidos'}</h2>
             <div className='lists-buttons-container'>
-              <button className="button primary" onClick={() => setIsAddingBook(true)}>
+              <button
+                className={`button ${isAddingBook? 'active' : 'primary'}`}
+                onClick={() => setIsAddingBook(true)}
+              >
                 Añadir Nuevo Libro
               </button>
-              <button className="button primary" onClick={() => handleSelectUserLists(true)}>
+              <button
+                className={`button ${isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(true)}
+              >
                 Lista de Lectura
                 <span>{` (${readingBooksCount})`}</span>
               </button>
-              <button className="button primary" onClick={() => handleSelectUserLists(false)}>
+              <button
+                className={`button ${!isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(false)}
+              >
                 Libros Leidos
                 <span>{` (${readBooksCount})`}</span>
               </button>

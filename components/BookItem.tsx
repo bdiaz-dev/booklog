@@ -55,11 +55,11 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
               {showFeedback && <Feedback book={readingBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
             </AnimatePresence>
             <div className='book-item-img'>
-              <img src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
+              <img onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
             </div>
             <div>
               <div className="book-item-info">
-                <span className="book-item-info-title">{book.title || book.volumeInfo?.title}</span>
+                <span className="book-item-info-title" onClick={() => setShowInfo(!showInfo)}>{book.title || book.volumeInfo?.title}</span>
                 <span className="book-item-info-author">{book.author || (book.volumeInfo?.authors ? book.volumeInfo.authors.join(", ") : "Autor desconocido")}</span>
                 <button
                   onClick={() => setShowInfo(!showInfo)}
@@ -68,14 +68,14 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                   + Info
                 </button>
                 {readingBook &&
-                  <span className='book-item-user-info'>
-                    📚 Añadido el: {readingBook.addedDate.split("T")[0]}
-                  </span>}
+                    <span className='book-item-user-info'>
+                    📚 Añadido el: {new Date(readingBook.addedDate).toLocaleDateString('es-ES')}
+                    </span>}
                 {readedBook &&
-                  <span className='book-item-user-info'>
-                    ✅ Leído el: {readedBook.readedDate.split("T")[0]}
+                    <span className='book-item-user-info'>
+                    ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
                     {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>}
-                  </span>}
+                    </span>}
               </div>
               <div className="book-item-actions">
                 <>

@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import useGetOneBookData from '@/hooks/useGetOneBookData'
 import { placeholderImg, ratingEmojis } from '@/lib/constants'
 import useUsersRatings from '@/hooks/useUsersRatings'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Mosaic, OrbitProgress } from 'react-loading-indicators'
 import Loading from '../Loading'
+import { useBookData } from '@/context/BookDataContext'
+import { useBookActions } from '@/hooks/useBookActions'
+import Feedback from '../Feedback'
 
 
 interface InfoModalProps {
@@ -16,6 +19,14 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
   const { formatedBookData, isLoading } = useGetOneBookData(book)
   const bookId = !!book.userId ? book.googleId : book.id
   const { ratings } = useUsersRatings(bookId)
+
+  const [isActionLoading, setIsActionLoading] = useState(false)
+  const [showFeedback, setShowFeedback] = useState(false)
+  const { useStateOfBook, loading, error } = useBookData()
+  const { readedBook, readingBook } = useStateOfBook(book)
+  // const { ratings } = useUsersRatings(book.id)
+  //estoy evitando enviar setShowError a useBookActions (arreglar)
+  const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(() => { })
 
   if (isLoading) return (
     <Loading setModal={() => { setShowInfo(false) }} />
@@ -50,6 +61,10 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
         exit={{ scaleY: 0 }}
         className="info-modal-content"
       >
+        <AnimatePresence>
+              // poner modal confirmando que se ha marcado como leido
+          {showFeedback && <Feedback book={readingBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
+        </AnimatePresence>
         <span className="close" onClick={() => setShowInfo(false)}>&times;</span>
         <div className="info-modal-body">
           <div className="info-modal-image">
@@ -58,6 +73,48 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
           <div className="info-modal-info">
             <h3 className='info-modal-info-title'>{formatedBookData.title}</h3>
             <h4 className='info-modal-info-author'>{formatedBookData.autor}</h4>
+            {readingBook &&
+              <span className='book-item-user-info'>
+                📚 Añadido el: {new Date(readingBook.addedDate).toLocaleDateString('es-ES')}
+              </span>}
+            {readedBook &&
+              <span className='book-item-user-info'>
+                ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
+                {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>}
+              </span>}
+            <div className="book-item-actions">
+              <>
+                {readingBook
+                  ? <button
+                    onClick={() => setShowFeedback(true)}
+                    className="button secondary"
+                  >
+                    Marcar como leído
+                  </button>
+                  : (!readedBook && (
+                    <button
+                      onClick={() => handleAddBookClick(book, setIsActionLoading)}
+                      className="button secondary"
+                      style={{ backgroundColor: isActionLoading ? "#808080" : "" }}
+                      disabled={isActionLoading}
+                    >
+                      {isActionLoading ? "Añadiendo..." : "Añadir a la lista"}
+                    </button>
+                  )
+                  )}
+              </>
+
+              {(!!readedBook || !!readingBook) && (
+                <button
+                  onClick={() => handleRemoveBookClick(!!book.volumeInfo ? book.id : book.googleId, setIsActionLoading)}
+                  className="button danger"
+                  style={{ backgroundColor: isActionLoading ? "#808080" : "" }}
+                  disabled={isActionLoading}
+                >
+                  {isActionLoading ? 'Quitando...' : 'Eliminar'}
+                </button>
+              )}
+            </div>
             <div className='info-modal-info-description' dangerouslySetInnerHTML={{ __html: formatedBookData.description }} />
             <p className='info-modal-info-categories'><span>* Categorias: </span>{formatedBookData.categories}</p>
             <div className='info-modal-info-details'>

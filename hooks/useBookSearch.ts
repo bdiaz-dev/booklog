@@ -10,7 +10,7 @@ export function useBookSearch() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}`)
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&projection=full`)
       const data = await response.json()
       setSearchResults(data.items || [])
     } catch (error) {

@@ -6,6 +6,12 @@ import "@/public/books.svg"
 import UserListsContainer from '@/components/UserListsContainer'
 import UserMenu from '@/components/UserMenu'
 
+// bug caritas
+// 4 niveles rating
+// api google books
+// editar feedback
+// ajustar logica ordenar
+
 export default async function Home() {
   const session = await getServerSession(authOptions)
 
