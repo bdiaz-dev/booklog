@@ -1,238 +1,49 @@
-@import 'variables';
-@import 'global';
-@import 'home';
-@import 'buttons';
-@import 'book-list';
-@import 'add-book-form';
-@import 'search-results';
-@import 'error-alert';
-@import 'media-queries';
-@import 'modals';
-@import 'book-item';
-@import 'loader-animation';
-
-// // Variables
-// $primary-color: #3b82f6;
-// $secondary-color: #10b981;
-// $danger-color: #ef4444;
-// $background-color: #f3f4f6;
-// $text-color: #333333;
-// $border-color: #e5e7eb;
-
-// // Estilos globales
-// body {
-//   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-//   line-height: 1.5;
-//   color: $text-color;
-//   background-color: $background-color;
-// }
-
-// // Contenedor principal
-// .container {
-//   width: 100%;
-//   max-width: 1200px;
-//   margin: 0 auto;
-//   padding: 0 1rem;
-// }
-
-// // Estilos de la página de inicio
-// .home-page {
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: 100vh;
-
-//   h1 {
-//     font-size: 2.25rem;
-//     font-weight: bold;
-//     margin-bottom: 2rem;
-//   }
-
-//   .button-container {
-//     display: flex;
-//     gap: 1rem;
-//   }
-// }
-
-// // Botones
-// .button {
-//   padding: 0.5rem 1rem;
-//   border-radius: 0.25rem;
-//   font-weight: bold;
-//   text-decoration: none;
-//   display: inline-flex;
-//   align-items: center;
-//   justify-content: center;
-//   transition: background-color 0.3s ease;
-
-//   &.primary {
-//     background-color: $primary-color;
-//     color: white;
-
-//     &:hover {
-//       background-color: adjust-color($primary-color, $lightness: -10%);
-//     }
-//   }
-
-//   &.secondary {
-//     background-color: $secondary-color;
-//     color: white;
-
-//     &:hover {
-//       background-color: adjust-color($secondary-color, $lightness: -10%);
-//     }
-//   }
-
-//   .book-count {
-//     font-size: 0.875rem;
-//     margin-top: 0.25rem;
-//     padding: 0.1rem 0.6rem;
-//     margin-left: 1rem;
-//     border: 1px solid white;
-//     border-radius: 50%;
-//   }
-// }
-
-// // Estilos para las listas de libros
-// .book-list {
-//   width: 100%;
-//   max-width: 600px;
-//   margin: 2rem auto;
-
-//   h2 {
-//     font-size: 1.875rem;
-//     font-weight: bold;
-//     margin-bottom: 1rem;
-//   }
-
-//   .search-input {
-//     width: 100%;
-//     padding: 0.5rem;
-//     border: 1px solid $border-color;
-//     border-radius: 0.25rem;
-//     margin-bottom: 1rem;
-//   }
-
-//   ul {
-//     list-style-type: none;
-//     padding: 0;
-
-//     li {
-//       display: flex;
-//       justify-content: space-between;
-//       align-items: center;
-//       padding: 0.5rem;
-//       border: 1px solid $border-color;
-//       border-radius: 0.25rem;
-//       margin-bottom: 0.5rem;
-
-//       .book-info {
-//         flex-grow: 1;
-
-//         .book-title {
-//           font-weight: bold;
-//         }
-
-//         .book-author {
-//           font-size: 0.875rem;
-//           color: adjust-color($text-color, $lightness: 20%);
-//         }
-//       }
-
-//       .book-actions {
-//         display: flex;
-//         gap: 0.5rem;
-//       }
-//     }
-//   }
-// }
-
-// // Estilos para el formulario de añadir libro
-// .add-book-form {
-//   width: 100%;
-//   max-width: 600px;
-//   margin: 2rem auto;
-
-//   h2 {
-//     font-size: 1.875rem;
-//     font-weight: bold;
-//     margin-bottom: 1rem;
-//   }
-
-//   form {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 1rem;
-
-//     input {
-//       padding: 0.5rem;
-//       border: 1px solid $border-color;
-//       border-radius: 0.25rem;
-//     }
-
-//     button {
-//       @extend .button;
-//       @extend .primary;
-//     }
-//   }
-// }
-
-// // Estilos para los resultados de búsqueda
-// .search-results {
-//   margin-top: 1rem;
-
-//   ul {
-//     list-style-type: none;
-//     padding: 0;
-
-//     li {
-//       display: flex;
-//       justify-content: space-between;
-//       align-items: center;
-//       padding: 0.5rem;
-//       border: 1px solid $border-color;
-//       border-radius: 0.25rem;
-//       margin-bottom: 0.5rem;
-
-//       .book-info {
-//         flex-grow: 1;
-//       }
-
-//       button {
-//         @extend .button;
-//         @extend .secondary;
-//       }
-      
-//     }
-//   }
-// }
-// .error-alert {
-//   padding: .1rem 2rem;
-//   background-color: $danger-color;
-//   color: white;
-//   font-weight: bolder;
-//   border-radius: 50px;
-//   margin-bottom: 1rem;
-//   position: fixed;
-//   bottom: 1rem;
-//   left: 50%;
-//   transform: translateX(-50%);
-// }
-
-// // Media queries para responsividad
-// @media (max-width: 768px) {
-//   .home-page {
-//     h1 {
-//       font-size: 1.875rem;
-//     }
-
-//     .button-container {
-//       flex-direction: column;
-//     }
-//   }
-
-//   .book-list, .add-book-form {
-//     padding: 0 1rem;
-//   }
-// }
+@forward 'variables';
+@forward 'global';
+@forward 'home';
+@forward 'buttons';
+@forward 'book-list';
+@forward 'add-book-form';
+@forward 'search-results';
+@forward 'error-alert';
+@forward 'media-queries';
+@forward 'modals';
+@forward 'book-item';
+@forward 'loader-animation';
+@forward 'user-menu';
+// @import 'global';
+// @import 'home';
+// @import 'buttons';
+// @import 'book-list';
+// @import 'add-book-form';
+// @import 'search-results';
+// @import 'error-alert';
+// @import 'media-queries';
+// @import 'modals';
+// @import 'book-item';
+// @import 'loader-animation';
+// @import 'user-menu';
+// @use 'global';
+// @use 'home';
+// @use 'buttons';
+// @use 'book-list';
+// @use 'add-book-form';
+// @use 'search-results';
+// @use 'error-alert';
+// @use 'media-queries';
+// @use 'modals';
+// @use 'book-item';
+// @use 'loader-animation';
+// @use 'user-menu';
+// @import 'global';
+// @import 'home';
+// @import 'buttons';
+// @import 'book-list';
+// @import 'add-book-form';
+// @import 'search-results';
+// @import 'error-alert';
+// @import 'media-queries';
+// @import 'modals';
+// @import 'book-item';
+// @import 'loader-animation';
+// @import 'user-menu';

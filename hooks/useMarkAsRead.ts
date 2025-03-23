@@ -20,7 +20,7 @@ export function useMarkAsRead() {
       return { success: true }
     } catch (error) {
       console.error("Error marking book as read:", error)
-      return { success: false, error: error.message }
+      return { success: false, error: (error as Error).message }
     }
   }
 

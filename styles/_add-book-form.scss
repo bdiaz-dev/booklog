@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .add-book-form {
   width: 100%;
   max-width: 600px;
@@ -20,9 +22,9 @@
       border-radius: 0.25rem;
     }
 
-    button {
-      @extend .button;
-      @extend .primary;
-    }
+    // button {
+    //   @extend .button;
+    //   @extend .primary;
+    // }
   }
 }

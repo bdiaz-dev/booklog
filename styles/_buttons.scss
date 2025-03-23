@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .lists-buttons-container {
   display: flex;
   justify-content: center;
@@ -14,6 +16,7 @@
   align-items: center;
   justify-content: center;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 
   &.primary {
     background-color: $primary-color;

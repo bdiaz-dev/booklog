@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .error-alert {
   padding: .1rem 2rem;
   background-color: $danger-color;

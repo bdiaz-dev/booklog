@@ -26,6 +26,8 @@ export interface BookActions {
   handleAddBookClick: (book: Book, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
   handleRemoveBookClick: (bookid: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
   handleError: () => void
+  isDeleting: boolean
+  setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const useBookActions = (setShowError: React.Dispatch<React.SetStateAction<boolean>>): BookActions => {

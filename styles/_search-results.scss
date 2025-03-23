@@ -1,3 +1,5 @@
+@use 'variables' as *;
+
 .search-results {
   margin-top: 1rem;
 
@@ -18,10 +20,10 @@
         flex-grow: 1;
       }
 
-      button {
-        @extend .button;
-        @extend .secondary;
-      }
+      // button {
+      //   @extend .button;
+      //   @extend .secondary;
+      // }
     }
   }
 }

@@ -16,13 +16,17 @@ interface BookListProps {
 export default function BookList({ isReadingList, setIsLoading } : BookListProps) {
   const { readedList, readingList, loading, error } = useBookData()
   const [searchTerm, setSearchTerm] = useState("")
-  const [sortCriteria, setSortCriteria] = useState("title")
   const [sortAscendent, setSortAscendent] = useState(true)
   const books = isReadingList ? readingList : readedList
+  const [sortCriteria, setSortCriteria] = useState("title")
 
   useEffect(() => {
     setIsLoading(loading)
   }, [loading])
+  
+  useEffect(() => {
+    setSortCriteria("title")
+  }, [isReadingList])
 
   if (loading) return (<Loading isInitial />)
   // setIsLoading(false)

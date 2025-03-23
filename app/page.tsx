@@ -3,9 +3,8 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
 import "@/public/books.svg"
-import Image from 'next/image'
 import UserListsContainer from '@/components/UserListsContainer'
-import { BookDataProvider } from '@/context/BookDataContext'
+import UserMenu from '@/components/UserMenu'
 
 export default async function Home() {
   const session = await getServerSession(authOptions)
@@ -13,7 +12,7 @@ export default async function Home() {
   if (!session) {
     return (
       <div className="home-page">
-        <h1>Bienvenido al Registro de Lectura</h1>
+        <h1>Bienvenido a BookLog</h1>
         <div className="button-container">
           <Link href="/api/auth/signin" className="button primary">
             Iniciar Sesión
@@ -23,6 +22,8 @@ export default async function Home() {
     )
   }
 
+  // console.log(session)
+  
   const userId = session.user.id
   const readBooks = await prisma.book.count({ where: { userId, isRead: true } })
   const unreadBooks = await prisma.book.count({ where: { userId, isRead: false } })
@@ -30,10 +31,13 @@ export default async function Home() {
   return (
     <div className="home-page">
       <header className='header'>
-      <span>Registro de Lectura</span>
+      <span className='header-title'>Registro de Lectura</span>
+      <UserMenu session={session} />
+      {/* <span>{session.user.name}</span> */}
+      {/* <img src={session.user.image} width={35} height={35} alt="" />
         <Link href="/api/auth/signout" className="button secondary">
           Cerrar Sesión
-        </Link>
+        </Link> */}
       </header>
         <UserListsContainer readBooksCount={readBooks} readingBooksCount={unreadBooks}/>
         
