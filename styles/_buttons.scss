@@ -7,6 +7,55 @@
   margin-top: 1rem;
 }
 
+.emoji-button {
+  border: none;
+  background-color: transparent;
+  transition: all 0.3s ease;
+
+  &:hover {
+    &[data-selected='false'] {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+
+  &[data-selected='true'] {
+    // transform: scale(1.6);
+    animation: celebrate 1s ease-in-out 1;
+  }
+  
+  &[data-discarted='true'] {
+    filter: grayscale(1);
+  }
+}
+
+@keyframes celebrate {
+
+  0% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.6) rotate(10deg);
+  }
+
+  50% {
+    transform: scale(1) rotate(-10deg);
+  }
+
+  75% {
+    transform: scale(1.6) rotate(10deg);
+  }
+
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+// .celebrate {
+//   animation: celebrate 1s ease-in-out 3;
+// }
+
 .button {
   padding: 0.5rem 1rem;
   border-radius: 0.25rem;
@@ -35,6 +84,7 @@
       background-color: adjust-color($secondary-color, $lightness: -10%);
     }
   }
+
   &.info {
     background-color: $info-color;
     color: white;
@@ -43,6 +93,7 @@
       background-color: adjust-color($info-color, $lightness: +10%);
     }
   }
+
   &.danger {
     background-color: $danger-color;
     color: white;
@@ -51,6 +102,7 @@
       background-color: adjust-color($danger-color, $lightness: +10%);
     }
   }
+
   &.active {
     background-color: $active-color;
     color: black;

@@ -1,4 +1,5 @@
 import { useRouter } from "next/navigation"
+import { useState } from 'react'
 
 export function useMarkAsRead() {
   const router = useRouter()

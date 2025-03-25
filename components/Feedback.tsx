@@ -1,13 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useMarkAsRead } from '@/hooks/useMarkAsRead'
 import { useRouter } from "next/navigation"
-import { ratingEmojis } from '@/lib/constants'
+import { ratingEmojis, ratingSvgEmojis } from '@/lib/constants'
 import { useBookData } from '@/context/BookDataContext'
 import { AnimatePresence, motion } from 'framer-motion'
 import { div } from 'framer-motion/client'
 
 export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }) {
   const [feedback, setFeedback] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
   const [readedToday, setReadedToday] = useState(true)
   const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
   const [message, setMessage] = useState("")
@@ -15,13 +16,20 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
   const router = useRouter()
   const { readedList, setReadedList, readingList, setReadingList } = useBookData()
 
+  useEffect(() => {
+    if (book.isRead) {
+      const actualDate = new Date(book.readedDate).toISOString().split("T")[0]
+      setReadedDate(actualDate)
+      setReadedToday(false)
+    }
+  }, [book])
+
   const handleFeedback = async (response) => {
-    setFeedback(response)
+    setIsLoading(true)
     const bookid = isGoogleSearch ? book.id : book.googleId
     const result = await handleMarkAsRead(bookid, response, readedDate)
 
     if (result.success) {
-      // setIsDeleting(true)
 
       const bookToChange = readingList.find((b) => b.googleId === bookid)
       if (!!bookToChange) {
@@ -32,7 +40,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
         })
         setReadedList([...readedList, bookToChange])
         setReadingList(readingList.filter((b) => b.googleId !== bookToChange.googleId))
-        setMessage("Libro marcado como leído con éxito.")
+        // setMessage("Libro marcado como leído con éxito.")
       } else {
         const bookToChange = readedList.find((b) => b.googleId === bookid)
         if (!!bookToChange) {
@@ -42,16 +50,15 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
             isRead: true
           })
           setReadedList(readedList.map((b) => b.googleId === bookid ? bookToChange : b))
-        }}
-        setShowFeedback(false)
-      // setTimeout(() => router.refresh(), 30000)
+        }
+      }
+      setIsLoading(false)
+      setShowFeedback(false)
     } else {
       if (handleError !== null) {
         handleError()
       }
-      setMessage(`Error: ${result.error}`)
     }
-    // setIsDeleting(false)
   }
 
 
@@ -76,20 +83,19 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
         <h2>¿Te ha gustado?</h2>
         {/* <br /> */}
         <div className='feedback-modal-buttons'>
-          <button onClick={() => handleFeedback("wonderfull")} className="button info">
-            {ratingEmojis.wonderfull}
-          </button>
-          <button onClick={() => handleFeedback("like")} className="button info">
-            {ratingEmojis.like}
-          </button>
-          <button onClick={() => handleFeedback("normal")} className="button info">
-            {ratingEmojis.normal}
-          </button>
-          <button onClick={() => handleFeedback("dislike")} className="button info">
-            {ratingEmojis.dislike}
-          </button>
+            {["wonderfull", "like", "normal", "dislike"].map((rating) => (
+            <button
+              key={rating}
+              onClick={() => setFeedback(rating)}
+              className="emoji-button"
+              data-selected={feedback === rating}
+              data-discarted={!!feedback && feedback !== rating}
+            >
+              <img src={ratingSvgEmojis[rating]} alt={`${rating}Emoji`} />
+            </button>
+            ))}
+ 
         </div>
-        {/* <br /> */}
         <div className='feedback-modal-date'>
           <input type="checkbox" name="readedToday" id="readedToday" checked={readedToday} onChange={() => setReadedToday(!readedToday)} />
           <span>{"Usar fecha de hoy"}</span>
@@ -105,11 +111,11 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
             </div>
           )}
         </div>
-        {/* <br /> */}
-        {/* <button onClick={() => setShowFeedback(false)} className="button secondary">
-          Cancelar
-        </button> */}
-        {feedback && <p>Tu respuesta: {feedback}</p>}
+        <div className='feedback-modal-send'>
+          <button className='button primary' onClick={() => handleFeedback(feedback)}>
+            {isLoading ? "Enviando..." : "Enviar"}
+          </button>
+        </div>
       </motion.div>
 
     </motion.div>

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { placeholderImg, ratingEmojis } from '@/lib/constants'
+import { placeholderImg, ratingEmojis, ratingSvgEmojis } from '@/lib/constants'
 import Feedback from './Feedback'
 import ErrorAlert from './ErrorAlert'
 import { useBookActions } from '../hooks/useBookActions'
@@ -10,6 +10,7 @@ import { useBookData } from '@/context/BookDataContext'
 import InfoModal from './info-modal/InfoModal'
 import useUsersRatings from '@/hooks/useUsersRatings'
 import { AnimatePresence, motion } from 'framer-motion'
+import { img } from 'framer-motion/client'
 
 // interface BookItemProps { book: Book }
 
@@ -74,7 +75,9 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                 {readedBook &&
                     <span className='book-item-user-info'>
                     ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
-                    {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>}
+                    {readedBook.rating && 
+                    <img src={ratingSvgEmojis[readedBook.rating]} alt="ratingEmoji" />}
+                    {/* <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>} */}
                     </span>}
               </div>
               <div className="book-item-actions">

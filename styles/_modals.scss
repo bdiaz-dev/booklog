@@ -107,6 +107,11 @@
     button {
       font-size: 1.5rem;
       padding: 10px 12px;
+
+      img {
+        width: 3.8rem;
+        filter: drop-shadow(1px 1px 3px black);
+      }
     }
 
     span {
@@ -164,14 +169,15 @@
       margin-top: 0;
       margin-bottom: 1.5rem;
     }
-    
+
     &-description {
       margin-top: 2rem;
     }
-    
+
     &-categories {
       font-size: 0.8rem;
       font-style: oblique;
+
       span {
         font-weight: bold;
       }
@@ -195,20 +201,20 @@
           margin: auto;
           font-size: 1rem;
         }
-        
+
         p {
-        margin: auto;
+          margin: auto;
         }
       }
     }
 
   }
-  
-  
+
+
   &-rating-title {
     text-align: center;
   }
-  
+
   &-rating {
     display: flex;
     justify-content: center;
@@ -222,5 +228,12 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
+  }
+
+  &-send {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
   }
 }

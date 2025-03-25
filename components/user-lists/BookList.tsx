@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import Loading from '../Loading'
 import { Mosaic } from 'react-loading-indicators'
 import { filterAndSortBooks } from '@/lib/listUtils'
+import SortButton from '../SortButton'
 
 interface BookListProps {
   setIsLoading: (loading: boolean) => void
@@ -44,14 +45,15 @@ export default function BookList({ isReadingList, setIsLoading } : BookListProps
         className="search-input"
       />
       <div className='sort-buttons'>
+        <SortButton isAscending={sortAscendent} onClick={() => setSortAscendent(!sortAscendent)} />
         <button className={`button ${sortCriteria === "title" ? "active" : "info"}`} onClick={() => setSortCriteria("title")}>A-Z</button>
         {isReadingList
           ? (<button className={`button ${sortCriteria === "addedDate" ? "active" : "info"}`} onClick={() => setSortCriteria("addedDate")}>Fecha Añadido</button>)
           : (<button className={`button ${sortCriteria === "readedDate" ? "active" : "info"}`} onClick={() => setSortCriteria("readedDate")}>Fecha Lectura</button>)
         }
-        <button className='button info' onClick={() => setSortAscendent(!sortAscendent)}>
+        {/* <button className='button info' onClick={() => setSortAscendent(!sortAscendent)}>
           {sortAscendent ? 'Orden Ascendente' : 'Orden Descendente'}
-        </button>
+        </button> */}
       </div>
       <ul>
         {/* <AnimatePresence> */}
