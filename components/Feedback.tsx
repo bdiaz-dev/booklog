@@ -7,7 +7,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { div } from 'framer-motion/client'
 
 export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }) {
-  const [feedback, setFeedback] = useState("")
+  const [feedback, setFeedback] = useState(!!book.rating ? book.rating : "")
   const [isLoading, setIsLoading] = useState(false)
   const [readedToday, setReadedToday] = useState(true)
   const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
@@ -114,6 +114,9 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
         <div className='feedback-modal-send'>
           <button className='button primary' onClick={() => handleFeedback(feedback)}>
             {isLoading ? "Enviando..." : "Enviar"}
+          </button>
+          <button className='button danger' onClick={() => setShowFeedback(false)}>
+            Cancelar
           </button>
         </div>
       </motion.div>
