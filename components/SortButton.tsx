@@ -7,7 +7,7 @@ interface SortButtonProps {
 
 const SortButton: React.FC<SortButtonProps> = ({ isAscending, onClick }) => {
   return (
-    <button onClick={onClick} >
+    <button onClick={onClick} className="sort-button">
       {isAscending ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -19,11 +19,10 @@ const SortButton: React.FC<SortButtonProps> = ({ isAscending, onClick }) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="feather feather-bar-chart-2"
+          className="feather feather-arrow-up"
         >
-          <line x1="4" y1="6" x2="20" y2="6"></line>
-          <line x1="4" y1="12" x2="16" y2="12"></line>
-          <line x1="4" y1="18" x2="10" y2="18"></line>
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
         </svg>
       ) : (
         <svg
@@ -36,11 +35,10 @@ const SortButton: React.FC<SortButtonProps> = ({ isAscending, onClick }) => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="feather feather-bar-chart-2"
+          className="feather feather-arrow-down"
         >
-          <line x1="4" y1="18" x2="20" y2="18"></line>
-          <line x1="4" y1="12" x2="16" y2="12"></line>
-          <line x1="4" y1="6" x2="10" y2="6"></line>
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <polyline points="19 12 12 19 5 12"></polyline>
         </svg>
       )}
     </button>

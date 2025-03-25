@@ -7,16 +7,22 @@ export function filterAndSortBooks (books, searchTerm, sortCriteria, sortAscende
       book?.author?.toLowerCase().includes(searchTerm.toLowerCase()),
   )
   
+  // book tupe
   const sortedBooks = filteredBooks.sort((a, b) => {
+    const aReadedDate = Number(new Date(a.readedDate))
+    const bReadedDate = Number(new Date(b.readedDate))
+    const aAddedDate = Number(new Date(a.addedDate))
+    const bAddedDate = Number(new Date(b.addedDate))
     if (sortCriteria === "title") {
       if (sortAscendent) return a.title.localeCompare(b.title)
       else return b.title.localeCompare(a.title)
     } else if (sortCriteria === "readedDate") {
-      if (sortAscendent) return new Date(a.readedDate).getDate() - new Date(b.readedDate).getDate()
-      else return new Date(b.readedDate).getDate() - new Date(a.readedDate).getDate()
+      console.log(Number(new Date(a.readedDate)))
+      if (sortAscendent) return aReadedDate - bReadedDate
+      else return bReadedDate - aReadedDate
     } else if (sortCriteria === "addedDate") {
-      if (sortAscendent) return new Date(a.addedDate).getDate() - new Date(b.addedDate).getDate()
-      else return new Date(b.addedDate).getDate() - new Date(a.addedDate).getDate()
+      if (sortAscendent) return aAddedDate - bAddedDate
+      else return bAddedDate - aAddedDate
     }
     return 0
   })
