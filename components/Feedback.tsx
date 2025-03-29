@@ -1,20 +1,14 @@
 import { useEffect, useState } from "react"
-import { useMarkAsRead } from '@/hooks/useMarkAsRead'
-import { useRouter } from "next/navigation"
-import { ratingEmojis, ratingSvgEmojis } from '@/lib/constants'
-import { useBookData } from '@/context/BookDataContext'
-import { AnimatePresence, motion } from 'framer-motion'
-import { div } from 'framer-motion/client'
+import { ratingSvgEmojis } from '@/lib/constants'
+import { motion } from 'framer-motion'
+import { useFeedback } from '@/hooks/useFeedback'
 
 export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }) {
   const [feedback, setFeedback] = useState(!!book.rating ? book.rating : "")
-  const [isLoading, setIsLoading] = useState(false)
   const [readedToday, setReadedToday] = useState(true)
   const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
   const [message, setMessage] = useState("")
-  const { handleMarkAsRead } = useMarkAsRead()
-  const router = useRouter()
-  const { readedList, setReadedList, readingList, setReadingList } = useBookData()
+  const { handleFeedback, isLoading } = useFeedback(isGoogleSearch, handleError)
 
   useEffect(() => {
     if (book.isRead) {
@@ -23,45 +17,6 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
       setReadedToday(false)
     }
   }, [book])
-
-  const handleFeedback = async (response) => {
-    setIsLoading(true)
-    const bookid = isGoogleSearch ? book.id : book.googleId
-    const result = await handleMarkAsRead(bookid, response, readedDate)
-
-    if (result.success) {
-
-      const bookToChange = readingList.find((b) => b.googleId === bookid)
-      if (!!bookToChange) {
-        Object.assign(bookToChange, {
-          rating: response,
-          readedDate: readedDate,
-          isRead: true
-        })
-        setReadedList([...readedList, bookToChange])
-        setReadingList(readingList.filter((b) => b.googleId !== bookToChange.googleId))
-        // setMessage("Libro marcado como leído con éxito.")
-      } else {
-        const bookToChange = readedList.find((b) => b.googleId === bookid)
-        if (!!bookToChange) {
-          Object.assign(bookToChange, {
-            rating: response,
-            readedDate: readedDate,
-            isRead: true
-          })
-          setReadedList(readedList.map((b) => b.googleId === bookid ? bookToChange : b))
-        }
-      }
-      setIsLoading(false)
-      setShowFeedback(false)
-    } else {
-      if (handleError !== null) {
-        handleError()
-      }
-    }
-  }
-
-
 
   return (
     <motion.div
@@ -112,7 +67,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
           )}
         </div>
         <div className='feedback-modal-send'>
-          <button className='button primary' onClick={() => handleFeedback(feedback)}>
+          <button className='button primary' onClick={() => handleFeedback(book, feedback, readedDate, setShowFeedback)}>
             {isLoading ? "Enviando..." : "Enviar"}
           </button>
           <button className='button danger' onClick={() => setShowFeedback(false)}>
