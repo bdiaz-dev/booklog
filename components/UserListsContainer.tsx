@@ -96,7 +96,7 @@ export default function UserListsContainer({ readBooksCount, readingBooksCount }
           <ScrollToTopButton />
         </>
       )}
-      <div className="container">
+      <div className="container" data-isMobile={isMobile}>
         {!isAddingBook && <BookList isReadingList={isReadingList} setIsLoading={setIsLoading} />}
         {isAddingBook && <AddBook />}
       </div>
