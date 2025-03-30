@@ -35,7 +35,7 @@ export default async function Home() {
   return (
     <div className="home-page">
       <header className='header'>
-      <span className='header-title'>Registro de Lectura</span>
+      <span className='header-title'>EchoBook</span>
       <UserMenu session={session} />
       {/* <span>{session.user.name}</span> */}
       {/* <img src={session.user.image} width={35} height={35} alt="" />

@@ -1,10 +1,39 @@
 @use 'variables' as *;
 
-.lists-buttons-container {
+.lists-buttons-container, .lists-mobile-buttons-container {
   display: flex;
+  position: sticky;
+  top: 3.5rem;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .3rem;
+    
+    :first-child {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.lists-mobile-buttons-container {
+  position: fixed;
+  bottom: 0;
+  top: auto;
+  left: 0;
+  padding: .5rem;
+  justify-content: space-between;
+  margin-top: auto;
+  background-color: rgba(128, 128, 128, 0.479);
+  width: 100vw;
+  
+  button {
+    flex-grow: 1;
+  }
 }
 
 .emoji-button {
@@ -115,10 +144,12 @@
 
   .book-count {
     font-size: 0.875rem;
-    margin-top: 0.25rem;
-    padding: 0.1rem 0.6rem;
-    margin-left: 1rem;
+    // margin-top: 0.25rem;
+    padding: 0.1rem 0.4rem;
+    // margin-left: .5rem;
     border: 1px solid white;
+    background-color: white;
+    color: black;
     border-radius: 50%;
   }
 }

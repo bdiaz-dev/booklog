@@ -38,7 +38,7 @@ export function useBookSearch() {
       // Filtrar libros duplicados por ID
       setSearchResults((prevResults) => {
         const newBooks = (data.items || []).filter(
-          (newBook) => !prevResults.some((existingBook) => existingBook.id === newBook.id)
+          (newBook : string) => !prevResults.some((existingBook) => existingBook.id === newBook.id)
         );
         return reset ? newBooks : [...prevResults, ...newBooks];
       });
@@ -82,6 +82,21 @@ export function useBookSearch() {
     setStartIndex(newIndex); // Actualiza el índice
     fetchBooks(false, newIndex); // Realiza la búsqueda para cargar más resultados
   };
+  
+  const searchBookById = async (bookId: string) => {
+    setIsLoading(true)
+    try {
+      console.log(bookId)
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error("Error fetching book details:", error)
+      return null
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return {
     searchTerm,
@@ -92,5 +107,6 @@ export function useBookSearch() {
     loadMore,
     searchFields,
     handleFieldChange,
+    searchBookById
   };
 }

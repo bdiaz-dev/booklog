@@ -37,46 +37,22 @@ export default function AddBook() {
         </button>
       </form>
       <div className="add-book-form-fields">
-        <label>
-          <input
-            type="radio"
-            checked={searchFields.general}
-            onChange={() => handleFieldChange("general")}
-          />
-          General
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={searchFields.title}
-            onChange={() => handleFieldChange("title")}
-          />
-          Título
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={searchFields.author}
-            onChange={() => handleFieldChange("author")}
-          />
-          Autor
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={searchFields.category}
-            onChange={() => handleFieldChange("category")}
-          />
-          Categoría
-        </label>
-        <label>
-          <input
-            type="radio"
-            checked={searchFields.isbn}
-            onChange={() => handleFieldChange("isbn")}
-          />
-          ISBN
-        </label>
+        {[
+          { label: "General", field: "general" },
+          { label: "Título", field: "title" },
+          { label: "Autor", field: "author" },
+          { label: "Categoría", field: "category" },
+          { label: "ISBN", field: "isbn" },
+        ].map(({ label, field }) => (
+          <label key={field}>
+            <input
+              type="radio"
+              checked={searchFields[field as keyof typeof searchFields]}
+              onChange={() => handleFieldChange(field)}
+            />
+            {label}
+          </label>
+        ))}
       </div>
       <div className="search-results">
         {isLoading && !searchResults.length ? (
@@ -92,7 +68,7 @@ export default function AddBook() {
             </ul>
             <button
               onClick={loadMore}
-              className={`button ${isLoading ? "info" : "primary"}`}
+              className={`button ${isLoading ? "" : "primary"}`}
               disabled={isLoading}
             >
               {isLoading ? "Cargando..." : "Cargar más"}
