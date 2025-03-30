@@ -1,19 +1,19 @@
 @use 'variables' as *;
 
-.lists-buttons-container, .lists-mobile-buttons-container {
-  display: flex;
+.lists-buttons-container {
   position: sticky;
-  top: 3.5rem;
+  top: 3.8rem;
+  display: flex;
   justify-content: center;
   gap: 1rem;
-  margin-top: 1.2rem;
-  
+  // margin-top: 1.2rem;
+
   button {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .3rem;
-    
+    gap: 0.3rem;
+
     :first-child {
       font-size: 1.2rem;
     }
@@ -21,18 +21,34 @@
 }
 
 .lists-mobile-buttons-container {
-  position: fixed;
-  bottom: 0;
-  top: auto;
-  left: 0;
-  padding: .5rem;
+  position: fixed; /* Fijo en la ventana */
+  bottom: 0vh; /* Alineado con la parte inferior */
+  left: 0; /* Alineado con el borde izquierdo */
+  right: 0; /* Alineado con el borde derecho */
+  padding: 0.5rem;
+  display: flex;
   justify-content: space-between;
-  margin-top: auto;
-  background-color: rgba(128, 128, 128, 0.479);
-  width: 100vw;
-  
+  align-items: center; /* Asegura que los botones estén centrados verticalmente */
+  background-color: rgba(128, 128, 128, 0.8); /* Fondo semitransparente */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Añade una sombra para destacar */
+  overflow: hidden; /* Evita que el contenido provoque scroll */
+
   button {
-    flex-grow: 1;
+    flex-grow: 1; /* Los botones ocupan el mismo espacio */
+    margin: 0 0.5rem; /* Espaciado entre botones */
+    max-width: 150px; /* Limita el ancho máximo de los botones */
+    padding: 0.5rem; /* Ajusta el tamaño del botón */
+    font-size: 1rem; /* Ajusta el tamaño del texto */
+    border-radius: 0.25rem; /* Bordes redondeados */
+    background-color: #007bff; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin bordes */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+
+    &:hover {
+      background-color: #0056b3; /* Color de fondo al pasar el cursor */
+    }
   }
 }
 

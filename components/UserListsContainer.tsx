@@ -39,64 +39,64 @@ export default function UserListsContainer({ readBooksCount, readingBooksCount }
   return (
     <BookDataProvider>
       {/* {isLoading && <Loading setModal={handleSignOut} />} */}
-      <div className="container">
-        {!isLoading && (
-          <>
-            {/* <h2>{isAddingBook ? 'Añadir nuevo libro' : isReadingList ? 'Lista de lectura' : 'Libros leidos'}</h2> */}
-            {isMobile ? (
-              <div className='lists-mobile-buttons-container'>
-                <button
-                  className={`button ${isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => setIsAddingBook(true)}
-                >
-                  <span>🔍</span>
-                </button>
-                <button
-                  className={`button ${isReadingList && !isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => handleSelectUserLists(true)}
-                >
-                  <span>📚</span>
-                  <span className='book-count'>{`${readingBooksCount}`}</span>
-                </button>
-                <button
-                  className={`button ${!isReadingList && !isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => handleSelectUserLists(false)}
-                >
-                  <span>✅</span>
-                  <span className='book-count'>{`${readBooksCount}`}</span>
-                </button>
-              </div>
-            ) : (
-              <div className='lists-buttons-container'>
-                <button
-                  className={`button ${isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => setIsAddingBook(true)}
-                >
-                  <span>🔍</span>
-                  <span>Buscar Libros</span>
-                </button>
-                <button
-                  className={`button ${isReadingList && !isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => handleSelectUserLists(true)}
-                >
-                  <span>📚 </span>
-                  <span>Lista de Lectura</span>
-                  <span className='book-count'>{`${readingBooksCount}`}</span>
-                </button>
-                <button
-                  className={`button ${!isReadingList && !isAddingBook ? 'active' : 'primary'}`}
-                  onClick={() => handleSelectUserLists(false)}
-                >
-                  <span>✅ </span>
-                  <span>Libros leidos</span>
-                  <span className='book-count'>{`${readBooksCount}`}</span>
-                </button>
-              </div>
-            )}
+      {!isLoading && (
+        <>
+          {/* <h2>{isAddingBook ? 'Añadir nuevo libro' : isReadingList ? 'Lista de lectura' : 'Libros leidos'}</h2> */}
+          {isMobile ? (
+            <div className='lists-mobile-buttons-container'>
+              <button
+                className={`button ${isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => setIsAddingBook(true)}
+              >
+                <span>🔍</span>
+              </button>
+              <button
+                className={`button ${isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(true)}
+              >
+                <span>📚</span>
+                <span className='book-count'>{`${readingBooksCount}`}</span>
+              </button>
+              <button
+                className={`button ${!isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(false)}
+              >
+                <span>✅</span>
+                <span className='book-count'>{`${readBooksCount}`}</span>
+              </button>
+            </div>
+          ) : (
+            <div className='lists-buttons-container'>
+              <button
+                className={`button ${isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => setIsAddingBook(true)}
+              >
+                <span>🔍</span>
+                <span>Buscar Libros</span>
+              </button>
+              <button
+                className={`button ${isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(true)}
+              >
+                <span>📚 </span>
+                <span>Lista de Lectura</span>
+                <span className='book-count'>{`${readingBooksCount}`}</span>
+              </button>
+              <button
+                className={`button ${!isReadingList && !isAddingBook ? 'active' : 'primary'}`}
+                onClick={() => handleSelectUserLists(false)}
+              >
+                <span>✅ </span>
+                <span>Libros leidos</span>
+                <span className='book-count'>{`${readBooksCount}`}</span>
+              </button>
+            </div>
+          )}
 
-            <ScrollToTopButton />
-          </>
-        )}
+          <ScrollToTopButton />
+        </>
+      )}
+      <div className="container">
         {!isAddingBook && <BookList isReadingList={isReadingList} setIsLoading={setIsLoading} />}
         {isAddingBook && <AddBook />}
       </div>

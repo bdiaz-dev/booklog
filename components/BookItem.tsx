@@ -11,6 +11,7 @@ import InfoModal from './info-modal/InfoModal'
 import useUsersRatings from '@/hooks/useUsersRatings'
 import { AnimatePresence, motion } from 'framer-motion'
 import { img } from 'framer-motion/client'
+import { useIsMobile } from '@/hooks/use-mobile'
 
 // interface BookItemProps { book: Book }
 
@@ -22,6 +23,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
   const [showError, setShowError] = useState(false)
   const { useStateOfBook, loading, error } = useBookData()
   const { readedBook, readingBook } = useStateOfBook(book)
+  const isMobile = useIsMobile()
   // const { ratings } = useUsersRatings(book.id)
   const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(setShowError)
 
@@ -46,6 +48,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
             exit={{ scaleY: 0 }}
             transition={{ duration: 0.3 }}
             className='book-item'
+            data-isMobile={isMobile}
           >
             <AnimatePresence>
               {showInfo && <InfoModal book={book} setShowInfo={setShowInfo} />}

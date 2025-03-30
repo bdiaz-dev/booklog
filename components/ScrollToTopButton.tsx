@@ -1,9 +1,11 @@
 'use client';
 
+import { useIsMobile } from '@/hooks/use-mobile';
 import { useEffect, useState } from 'react';
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile()
 
   // Maneja la visibilidad del botón al hacer scroll
   useEffect(() => {
@@ -34,6 +36,7 @@ export default function ScrollToTopButton() {
       className={`scroll-to-top-button ${isVisible ? 'visible' : ''}`}
       onClick={scrollToTop}
       aria-label="Scroll to top"
+      style={{bottom: isMobile ? '80px' : '20px'}}
     >
       ↑
     </button>

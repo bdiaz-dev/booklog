@@ -1,5 +1,9 @@
-.book-item {
+.book-item[data-isMobile = "false"] {
   display: flex;
+}
+
+.book-item {
+  // display: flex;
   gap: 1.5rem;
   
   &-img {
