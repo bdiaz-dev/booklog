@@ -10,6 +10,7 @@ import InfoModal from '@/components/modals/InfoModal'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useIsMobile } from '@/hooks/use-mobile'
 import ConfirmDeleteModal from '@/components/modals/ConfirmDeleteModal'
+import Image from 'next/image'
 
 export default function BookItem({ book, isSearch = false }: { book: any, isSearch?: boolean }) {
 
@@ -50,7 +51,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
         >
           <motion.div
             key={book.id + "item"}
-            layout={!isSearch}
+            // layout={!isSearch}
             animate={{ scaleY: 1 }}
             exit={{ scaleY: 0 }}
             transition={{ duration: 0.3 }}
@@ -66,6 +67,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
               {showFeedback && <Feedback book={!!readingBook ? readingBook : readedBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
             </AnimatePresence>
             <div className='book-item-img'>
+              {/* <Image width={60} height={70} onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} /> */}
               <img onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
             </div>
             <div>
