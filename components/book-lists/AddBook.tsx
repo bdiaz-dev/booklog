@@ -1,6 +1,7 @@
 "use client";
 import { useBookSearch } from "@/hooks/useBookSearch";
-import BookItem from "../BookItem";
+import BookItem from "./BookItem";
+import { UserBook } from '@/lib/types/types';
 
 export default function AddBook() {
   const {
@@ -60,7 +61,7 @@ export default function AddBook() {
         ) : searchResults.length > 0 ? (
           <>
             <ul>
-              {searchResults.map((book) => (
+              {searchResults.map((book: UserBook) => (
                 <li key={book.id}>
                   <BookItem book={book} isSearch />
                 </li>
@@ -68,14 +69,14 @@ export default function AddBook() {
             </ul>
             <button
               onClick={loadMore}
-              className={`button ${isLoading ? "" : "primary"}`}
+              className={`button ${isLoading ? "" : "primary"} load-more`}
               disabled={isLoading}
             >
               {isLoading ? "Cargando..." : "Cargar más"}
             </button>
           </>
         ) : (
-          <p>No se encontraron resultados. Intenta con otra búsqueda.</p>
+          <p>Sin resultados. Intenta otra búsqueda.</p>
         )}
       </div>
     </div>

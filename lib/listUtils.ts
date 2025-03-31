@@ -1,6 +1,10 @@
 // book type para todo
 
-export function filterAndSortBooks (books, searchTerm, sortCriteria, sortAscendent) {
+import { UserBook } from './types/types'
+
+export function filterAndSortBooks (
+  books : Array<UserBook>, searchTerm : string, sortCriteria : string, sortAscendent : boolean
+) {
   const filteredBooks = books.filter(
     (book) =>
       book?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -8,16 +12,15 @@ export function filterAndSortBooks (books, searchTerm, sortCriteria, sortAscende
   )
   
   // book tupe
-  const sortedBooks = filteredBooks.sort((a, b) => {
-    const aReadedDate = Number(new Date(a.readedDate))
-    const bReadedDate = Number(new Date(b.readedDate))
-    const aAddedDate = Number(new Date(a.addedDate))
-    const bAddedDate = Number(new Date(b.addedDate))
+  const sortedBooks = filteredBooks.sort((a : UserBook, b : UserBook) => {
+    const aReadedDate = Number(new Date(a.readedDate ?? 0))
+    const bReadedDate = Number(new Date(b.readedDate ?? 0))
+    const aAddedDate = Number(new Date(a.addedDate ?? 0))
+    const bAddedDate = Number(new Date(b.addedDate ?? 0))
     if (sortCriteria === "title") {
       if (sortAscendent) return a.title.localeCompare(b.title)
       else return b.title.localeCompare(a.title)
     } else if (sortCriteria === "readedDate") {
-      console.log(Number(new Date(a.readedDate)))
       if (sortAscendent) return aReadedDate - bReadedDate
       else return bReadedDate - aReadedDate
     } else if (sortCriteria === "addedDate") {

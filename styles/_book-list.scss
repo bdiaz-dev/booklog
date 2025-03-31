@@ -10,14 +10,20 @@
     font-weight: bold;
     margin-bottom: 1rem;
   }
-
-  .search-input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid $border-color;
-    border-radius: 0.25rem;
+  
+  &-search-input {
+    display: flex;
+    gap: .5rem;
     margin-bottom: 1rem;
+
+    .search-input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid $border-color;
+      border-radius: 0.25rem;
+    }
   }
+
   
   .sort-buttons {
     display: flex;

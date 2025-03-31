@@ -3,12 +3,13 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
 import "@/public/books.svg"
-import UserListsContainer from '@/components/UserListsContainer'
-import UserMenu from '@/components/UserMenu'
+import UserListsContainer from '@/components/book-lists/UserListsContainer'
+import UserMenu from '@/components/interface/UserMenu'
 
-// bug caritas
-// api google books
-// ajustar logica ordenar
+// discrimar acentos
+// boton borrar busqueda en lkstas usuario
+// borrar bisqueda al cambiar de lista
+// fecha publicacion formato iso
 
 export default async function Home() {
   const session = await getServerSession(authOptions)

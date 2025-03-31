@@ -45,6 +45,10 @@
     color: white; /* Color del texto */
     border: none; /* Sin bordes */
     cursor: pointer; /* Cambia el cursor al pasar por encima */
+    
+    :first-child {
+      margin-right: .5rem;
+    }
 
     &:hover {
       background-color: #0056b3; /* Color de fondo al pasar el cursor */
@@ -167,5 +171,9 @@
     background-color: white;
     color: black;
     border-radius: 50%;
+  }
+  
+  &.load-more {
+    width: 100%;
   }
 }

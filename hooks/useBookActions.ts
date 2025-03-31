@@ -2,35 +2,9 @@ import { useAddBook } from "@/hooks/useAddBook"
 import { useRemoveBook } from "@/hooks/useRemoveBook"
 import { useBookData } from '@/context/BookDataContext'
 import { useState } from 'react'
+import { GoogleBook, UserBook, UserBookActions } from '@/lib/types/types'
 
-export interface Book {
-  id: string
-  title: string
-  author: string
-  googleId: string
-  isRead: boolean
-  readedDate?: string | null
-  addedDate?: string
-  rating?: string | null
-  thumbnail?: string | null
-  volumeInfo?: {
-    title: string
-    authors: string[]
-    imageLinks?: {
-      thumbnail: string
-    }
-  }
-}
-
-export interface BookActions {
-  handleAddBookClick: (book: Book, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
-  handleRemoveBookClick: (bookid: string, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => Promise<void>
-  handleError: () => void
-  isDeleting: boolean
-  setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-export const useBookActions = (setShowError: React.Dispatch<React.SetStateAction<boolean>>): BookActions => {
+export const useBookActions = (setShowError: React.Dispatch<React.SetStateAction<boolean>>): UserBookActions => {
   const { readedList, setReadedList, readingList, setReadingList } = useBookData()
   const { handleAddBook } = useAddBook()
   const { handleRemoveBook } = useRemoveBook()
@@ -44,8 +18,8 @@ export const useBookActions = (setShowError: React.Dispatch<React.SetStateAction
     }, 3000)
   }
 
-  const handleAddBookClick = async (book: Book, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
-    const formatedNewBook: Book = {
+  const handleAddBookClick = async (book: UserBook, setIsLoading: React.Dispatch<React.SetStateAction<boolean>>) => {
+    const formatedNewBook: UserBook = {
       addedDate: new Date().toISOString(),
       author: book.volumeInfo?.authors ? book.volumeInfo.authors.join(", ") : "Autor desconocido",
       googleId: book.id,

@@ -3,15 +3,16 @@ import useGetOneBookData from '@/hooks/useGetOneBookData'
 import { placeholderImg, ratingEmojis } from '@/lib/constants'
 import useUsersRatings from '@/hooks/useUsersRatings'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Mosaic, OrbitProgress } from 'react-loading-indicators'
-import Loading from '../Loading'
+import Loading from '@/components/interface/Loading'
 import { useBookData } from '@/context/BookDataContext'
 import { useBookActions } from '@/hooks/useBookActions'
-import Feedback from '../Feedback'
+import Feedback from '@/components/modals/Feedback'
+import { useIsMobile } from '@/hooks/use-mobile'
+import { UserBook } from '@/lib/types/types'
 
 
 interface InfoModalProps {
-  book: Book
+  book: UserBook
   setShowInfo: (show: boolean) => void
 }
 
@@ -24,8 +25,7 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
   const [showFeedback, setShowFeedback] = useState(false)
   const { useStateOfBook, loading, error } = useBookData()
   const { readedBook, readingBook } = useStateOfBook(book)
-  // const { ratings } = useUsersRatings(book.id)
-  //estoy evitando enviar setShowError a useBookActions (arreglar)
+  const isMobile = useIsMobile()
   const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(() => { })
 
   if (isLoading) return (
@@ -80,7 +80,7 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
             {readedBook &&
               <span className='book-item-user-info'>
                 ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
-                {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>}
+                {readedBook.rating && <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating as keyof typeof ratingEmojis]}</span>}
               </span>}
             <div className="book-item-actions">
               <>
@@ -137,18 +137,11 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
             </div>
             <h3 className='info-modal-rating-title'>Valoración de los usuarios</h3>
             <div className="info-modal-rating">
-              <div>
-                <span>{`${ratingEmojis.wonderfull}  ${ratings.wonderfull}`}</span>
-              </div>
-              <div>
-                <span>{`${ratingEmojis.like}  ${ratings.like}`}</span>
-              </div>
-              <div>
-                <span>{`${ratingEmojis.normal}  ${ratings.normal}`}</span>
-              </div>
-              <div>
-                <span>{`${ratingEmojis.dislike}  ${ratings.dislike}`}</span>
-              </div>
+                {Object.entries(ratingEmojis).map(([key, emoji]) => (
+                <div key={key} data-ismobile={isMobile}>
+                  <span>{`${emoji}  ${ratings[key as keyof typeof ratings]}`}</span>
+                </div>
+                ))}
             </div>
           </div>
         </div>

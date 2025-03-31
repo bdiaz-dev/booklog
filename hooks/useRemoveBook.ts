@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation"
 export function useRemoveBook() {
   const router = useRouter()
 
-  const handleRemoveBook = async (bookId) => {
+  const handleRemoveBook = async (bookId: string) => {
     // try catch + return response
     try {
     const response = await fetch("/api/books/remove", {

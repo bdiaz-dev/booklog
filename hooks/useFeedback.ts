@@ -1,13 +1,22 @@
 import { useState } from 'react';
 import { useBookData } from '@/context/BookDataContext';
 import { useMarkAsRead } from '@/hooks/useMarkAsRead';
+import { UserBook } from '@/lib/types/types';
+
+export interface HandleFeedbackProps {
+  book: UserBook
+  response: string
+  readedDate: string
+  setShowFeedback: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
 export function useFeedback(isGoogleSearch: boolean, handleError: (() => void) | null) {
   const [isLoading, setIsLoading] = useState(false);
   const { handleMarkAsRead } = useMarkAsRead();
   const { readedList, setReadedList, readingList, setReadingList } = useBookData();
+  
 
-  const handleFeedback = async (book, response, readedDate, setShowFeedback) => {
+  const handleFeedback = async ({book, response, readedDate, setShowFeedback} : HandleFeedbackProps) => {
     setIsLoading(true);
     const bookid = isGoogleSearch ? book.id : book.googleId;
     const result = await handleMarkAsRead(bookid, response, readedDate);

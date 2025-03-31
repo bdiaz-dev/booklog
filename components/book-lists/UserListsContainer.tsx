@@ -1,47 +1,32 @@
 'use client'
 
-import BookList from './user-lists/BookList';
-import { BookDataProvider, useBookData } from '@/context/BookDataContext';
-import { useEffect, useState } from 'react';
-import AddBook from './search-list/AddBook';
-import Loading from './Loading';
-import ScrollToTopButton from './ScrollToTopButton';
+import BookList from '@/components/book-lists/BookList';
+import { BookDataProvider } from '@/context/BookDataContext';
+import { useState } from 'react';
+import AddBook from '@/components/book-lists/AddBook';
+import ScrollToTopButton from '@/components/interface/buttons/ScrollToTopButton';
 import { useIsMobile } from '@/hooks/use-mobile';
 
-export default function UserListsContainer({ readBooksCount, readingBooksCount }) {
+export interface UserListsContainerProps {
+  readBooksCount: number
+  readingBooksCount: number
+}
+
+export default function UserListsContainer({ readBooksCount, readingBooksCount }: UserListsContainerProps) {
   const [isReadingList, setIsReadingList] = useState(true);
   const [isAddingBook, setIsAddingBook] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const isMobile = useIsMobile();
 
-  const handleSelectUserLists = (bool) => {
+  const handleSelectUserLists = (bool: boolean) => {
     setIsAddingBook(false);
     setIsReadingList(bool);
   }
 
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     if (window.scrollY > 100) {
-  //       setIsVisible(true);
-  //     } else {
-  //       setIsVisible(false);
-  //     }
-  //   };
-
-  //   window.addEventListener('scroll', handleScroll);
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, []);
-
-
-
   return (
     <BookDataProvider>
-      {/* {isLoading && <Loading setModal={handleSignOut} />} */}
       {!isLoading && (
         <>
-          {/* <h2>{isAddingBook ? 'Añadir nuevo libro' : isReadingList ? 'Lista de lectura' : 'Libros leidos'}</h2> */}
           {isMobile ? (
             <div className='lists-mobile-buttons-container'>
               <button
@@ -96,7 +81,7 @@ export default function UserListsContainer({ readBooksCount, readingBooksCount }
           <ScrollToTopButton />
         </>
       )}
-      <div className="container" data-isMobile={isMobile}>
+      <div className="container" data-ismobile={isMobile}>
         {!isAddingBook && <BookList isReadingList={isReadingList} setIsLoading={setIsLoading} />}
         {isAddingBook && <AddBook />}
       </div>

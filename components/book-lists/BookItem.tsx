@@ -1,34 +1,42 @@
 "use client"
 
 import React, { useState } from "react"
-import { placeholderImg, ratingEmojis, ratingSvgEmojis } from '@/lib/constants'
-import Feedback from './Feedback'
-import ErrorAlert from './ErrorAlert'
-import { useBookActions } from '../hooks/useBookActions'
-// import { Book } from '@/interfaces'
+import { placeholderImg, ratingSvgEmojis } from '@/lib/constants'
+import Feedback from '@/components/modals/Feedback'
+import ErrorAlert from '@/components/interface/ErrorAlert'
+import { useBookActions } from '@/hooks/useBookActions'
 import { useBookData } from '@/context/BookDataContext'
-import InfoModal from './info-modal/InfoModal'
-import useUsersRatings from '@/hooks/useUsersRatings'
+import InfoModal from '@/components/modals/InfoModal'
 import { AnimatePresence, motion } from 'framer-motion'
-import { img } from 'framer-motion/client'
 import { useIsMobile } from '@/hooks/use-mobile'
-
-// interface BookItemProps { book: Book }
+import ConfirmDeleteModal from '@/components/modals/ConfirmDeleteModal'
 
 export default function BookItem({ book, isSearch = false }: { book: any, isSearch?: boolean }) {
 
   const [showInfo, setShowInfo] = useState(false)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [showError, setShowError] = useState(false)
   const { useStateOfBook, loading, error } = useBookData()
   const { readedBook, readingBook } = useStateOfBook(book)
   const isMobile = useIsMobile()
-  // const { ratings } = useUsersRatings(book.id)
   const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(setShowError)
+
+  const onConfirm = async () => {
+    await handleRemoveBookClick(!!book.volumeInfo ? book.id : book.googleId, setIsLoading)
+    setShowDeleteModal(false)
+  }
 
   return (
     <AnimatePresence>
+      {showDeleteModal &&
+        <ConfirmDeleteModal
+          isDeleting={isDeleting}
+          onConfirm={ onConfirm }
+          onCancel={() => { setShowDeleteModal(false) }}
+          title={book.title || book.volumeInfo?.title}
+        />}
       {!isDeleting && (
         <motion.div
           className='li'
@@ -43,12 +51,11 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
           <motion.div
             key={book.id + "item"}
             layout={!isSearch}
-            // initial={{ scaleY: 0 }}
             animate={{ scaleY: 1 }}
             exit={{ scaleY: 0 }}
             transition={{ duration: 0.3 }}
             className='book-item'
-            data-isMobile={isMobile}
+            data-ismobile={isMobile}
           >
             <AnimatePresence>
               {showInfo && <InfoModal book={book} setShowInfo={setShowInfo} />}
@@ -72,16 +79,15 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                   + Info
                 </button>
                 {readingBook &&
-                    <span className='book-item-user-info'>
+                  <span className='book-item-user-info'>
                     📚 Añadido el: {new Date(readingBook.addedDate).toLocaleDateString('es-ES')}
-                    </span>}
+                  </span>}
                 {readedBook &&
-                    <span className='book-item-user-info'>
+                  <span className='book-item-user-info'>
                     ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
-                    {readedBook.rating && 
-                    <img src={ratingSvgEmojis[readedBook.rating]} alt="ratingEmoji" />}
-                    {/* <span style={{ fontSize: "1.5em" }}>{ratingEmojis[readedBook.rating]}</span>} */}
-                    </span>}
+                    {readedBook.rating &&
+                      <img src={ratingSvgEmojis[readedBook.rating as keyof typeof ratingSvgEmojis]} alt="ratingEmoji" />}
+                  </span>}
               </div>
               <div className="book-item-actions">
                 <>
@@ -104,19 +110,21 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                     )
                     )}
                 </>
-                
+
                 {!!readedBook &&
-                <button
-                  onClick={() => setShowFeedback(true)}
-                  className="button primary"
-                >
-                  Editar
+                  <button
+                    onClick={() => setShowFeedback(true)}
+                    className="button primary"
+                  >
+                    Editar
                   </button>
-                  }
+                }
 
                 {(!!readedBook || !!readingBook) && (
                   <button
-                    onClick={() => handleRemoveBookClick(!!book.volumeInfo ? book.id : book.googleId, setIsLoading)}
+                    onClick={
+                      () => setShowDeleteModal(true)
+                    }
                     className="button danger"
                     style={{ backgroundColor: isLoading ? "#808080" : "" }}
                     disabled={isLoading}

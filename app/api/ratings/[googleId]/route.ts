@@ -26,7 +26,7 @@ export async function GET(req: NextRequest, { params }: { params: { googleId: st
     ratingsData.forEach((book) => {
       const ratingValue = book.rating;
       if (ratingValue === 'wonderfull') {
-        ratingsCount.wonderfuml++;
+        ratingsCount.wonderfull++;
       } else if (ratingValue === 'like') {
         ratingsCount.like++;
       } else if (ratingValue === 'normal') {

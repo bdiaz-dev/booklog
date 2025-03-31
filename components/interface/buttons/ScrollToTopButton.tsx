@@ -7,7 +7,6 @@ export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile()
 
-  // Maneja la visibilidad del botón al hacer scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 100) {
@@ -23,7 +22,6 @@ export default function ScrollToTopButton() {
     };
   }, []);
 
-  // Maneja el scroll hacia arriba
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

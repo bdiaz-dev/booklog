@@ -2,8 +2,17 @@ import { useEffect, useState } from "react"
 import { ratingSvgEmojis } from '@/lib/constants'
 import { motion } from 'framer-motion'
 import { useFeedback } from '@/hooks/useFeedback'
+import { UserBook } from '@/lib/types/types'
 
-export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }) {
+export interface FeedbackProps {
+  book: UserBook
+  setShowFeedback: React.Dispatch<React.SetStateAction<boolean>>
+  setIsDeleting: (isDeleting: boolean) => void
+  isGoogleSearch?: boolean
+  handleError?: (() => void) | null
+}
+
+export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }: FeedbackProps) {
   const [feedback, setFeedback] = useState(!!book.rating ? book.rating : "")
   const [readedToday, setReadedToday] = useState(true)
   const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
@@ -12,7 +21,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
 
   useEffect(() => {
     if (book.isRead) {
-      const actualDate = new Date(book.readedDate).toISOString().split("T")[0]
+      const actualDate = new Date(book.readedDate ?? new Date()).toISOString().split("T")[0]
       setReadedDate(actualDate)
       setReadedToday(false)
     }
@@ -38,7 +47,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
         <h2>¿Te ha gustado?</h2>
         {/* <br /> */}
         <div className='feedback-modal-buttons'>
-            {["wonderfull", "like", "normal", "dislike"].map((rating) => (
+            {(["wonderfull", "like", "normal", "dislike"] as Array<keyof typeof ratingSvgEmojis>).map((rating) => (
             <button
               key={rating}
               onClick={() => setFeedback(rating)}
@@ -67,7 +76,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
           )}
         </div>
         <div className='feedback-modal-send'>
-          <button className='button primary' onClick={() => handleFeedback(book, feedback, readedDate, setShowFeedback)}>
+          <button className='button primary' onClick={() => handleFeedback({book, response: feedback, readedDate, setShowFeedback})}>
             {isLoading ? "Enviando..." : "Enviar"}
           </button>
           <button className='button danger' onClick={() => setShowFeedback(false)}>
