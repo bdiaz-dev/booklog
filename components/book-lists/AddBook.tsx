@@ -28,7 +28,8 @@ export default function AddBook() {
           <button
             onClick={() => setSearchTerm("")}
             type="button"
-            className="button danger"
+            className="delete-text-button"
+            disabled={!searchTerm}
           >
             ✖
           </button>

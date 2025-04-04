@@ -15,28 +15,58 @@
     align-items: center;
     justify-content: space-between;
     z-index: 5000;
-    
+
     &-title {
       margin-left: 1rem;
       font-size: 1.5rem;
       font-weight: bold;
+
+      display: flex;
+      gap: .5rem;
+
+      align-items: center; 
+      // img {
+      //   filter: sepia(10);
+      // }
     }
-    
+
     // .button {
     //   margin-right: .5rem;
     // }
   }
-  
+
   h1 {
     font-size: 2.25rem;
     font-weight: bold;
     margin-bottom: 2rem;
   }
+  
+  
+  &.start {
+    justify-content: center;
+    
+    .title {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      line-height: 0;
+      // margin-bottom: 1.5rem;
+    }
+    
+    p {
+      line-height: 0;
+    }
+  }
 
   .button-container {
     display: flex;
     gap: 1rem;
-    
+
     .home-button {
       display: flex;
       align-items: center;
@@ -45,6 +75,6 @@
       gap: 1rem;
     }
   }
-  
-  
+
+
 }

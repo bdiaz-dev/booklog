@@ -76,7 +76,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
           )}
         </div>
         <div className='feedback-modal-send'>
-          <button className='button primary' onClick={() => handleFeedback({book, response: feedback, readedDate, setShowFeedback})}>
+          <button className='button secondary' onClick={() => handleFeedback({book, response: feedback, readedDate, setShowFeedback})}>
             {isLoading ? "Enviando..." : "Enviar"}
           </button>
           <button className='button danger' onClick={() => setShowFeedback(false)}>

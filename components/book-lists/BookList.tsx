@@ -48,7 +48,8 @@ export default function BookList({ isReadingList, setIsLoading }: BookListProps)
         <button
           onClick={() => setSearchTerm("")}
           type="button"
-          className="button danger"
+          className="delete-text-button"
+          disabled={!searchTerm}
         >
           ✖
         </button>

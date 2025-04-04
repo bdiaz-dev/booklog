@@ -4,9 +4,10 @@
   position: sticky;
   top: 3.8rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   gap: 1rem;
-  // margin-top: 1.2rem;
+  max-width: 600px; /* Limita el ancho máximo del contenedor */
+  margin: 0 auto; /* Centra el contenedor horizontalmente */
 
   button {
     display: flex;
@@ -105,9 +106,27 @@
 //   animation: celebrate 1s ease-in-out 3;
 // }
 
+.delete-text-button {
+  background-color: #0000ff00;
+  color: black;
+  border: none;
+  font-size: 1rem;
+  // padding: .2rem;
+  position: absolute;
+  height: 100%;
+  right: 6px;
+  // transition: transform 0.1s ease;
+  
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
 .button {
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  // border-radius: 0.25rem;
+  border: none;
   font-weight: bold;
   text-decoration: none;
   display: inline-flex;

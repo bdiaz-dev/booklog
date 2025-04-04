@@ -13,12 +13,6 @@
   align-items: center;
   background-color: $fallback-color;
 
-  // div {
-  //   width: 100px;
-  //   height: 50px;
-  //   display: flex;
-  //   justify-content: center;
-  // }
   span {
     font-weight: bolder;
     color: white;
@@ -61,6 +55,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  padding-top: 15px;
 
   &-content {
     background-color: #fefefe;
@@ -78,6 +74,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     margin: auto;
+    // margin-top: 60px;
 
     .close {
       color: #aaa;
@@ -157,14 +154,21 @@
   &-image {
     display: inline;
     float: inline-start;
+    margin-top: .5rem;
 
     img {
       width: 200px;
-      // max-width: 200px;
-      // border-radius: 10px;
-      // float: inline-start;
       display: flex;
       margin-right: 2rem;
+    }
+    
+        
+    &[data-ismobile='true'] {
+      display: block;
+      float: none;
+      img {
+        width: 40%;
+      }
     }
   }
 
@@ -177,6 +181,7 @@
       font-style: oblique;
       font-weight: bolder;
       margin-bottom: 0;
+      margin-top: .5rem;
     }
 
     &-author {

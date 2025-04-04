@@ -5,10 +5,11 @@ import { UserBook } from './types/types'
 export function filterAndSortBooks (
   books : Array<UserBook>, searchTerm : string, sortCriteria : string, sortAscendent : boolean
 ) {
+  const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
   const filteredBooks = books.filter(
     (book) =>
-      book?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book?.author?.toLowerCase().includes(searchTerm.toLowerCase()),
+      normalize(book?.title ?? "").includes(normalize(searchTerm)) ||
+      normalize(book?.author ?? "").includes(normalize(searchTerm)),
   )
   
   // book tupe

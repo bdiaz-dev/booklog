@@ -67,7 +67,7 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
         </AnimatePresence>
         <span className="close" onClick={() => setShowInfo(false)}>&times;</span>
         <div className="info-modal-body">
-          <div className="info-modal-image">
+          <div className="info-modal-image" data-ismobile={isMobile}>
             <img src={formatedBookData.image || placeholderImg} alt="Book cover" />
           </div>
           <div className="info-modal-info">
@@ -132,7 +132,7 @@ export default function InfoModal({ book, setShowInfo }: InfoModalProps) {
               </div>
               <div>
                 <h5>Fecha de publicación</h5>
-                <p>{formatedBookData.publishedDate}</p>
+                <p>{new Date(formatedBookData.publishedDate).toLocaleString().split(",")[0]}</p>
               </div>
             </div>
             <h3 className='info-modal-rating-title'>Valoración de los usuarios</h3>
