@@ -2,15 +2,15 @@
 
 .lists-buttons-container {
   background-color: $background-color;
-  padding: 0.5rem 0.8rem;
+  padding: 0.5rem 2rem;
   z-index: 1000;
   position: sticky;
   top: 3.2rem;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  max-width: 600px; /* Limita el ancho máximo del contenedor */
-  margin: 0 auto; /* Centra el contenedor horizontalmente */
+  max-width: 600px;
+  margin: 0 auto; 
 
   button {
     display: flex;
