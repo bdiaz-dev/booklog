@@ -25,6 +25,8 @@ model Book {
   author      String
   googleId    String?
   thumbnail   String?
+  isStarted   Boolean @default(false)
+  startedDate String?
   isRead      Boolean @default(false)
   readedDate  String?
   rating      String?

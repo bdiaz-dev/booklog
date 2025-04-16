@@ -21,16 +21,16 @@ export const BookDataProvider = ({ children }: { children: ReactNode }) => {
   const [readingCount, setReadingCount] = useState<number>(0)
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  
+
   const useStateOfBook = (book: any) => {
     const readedBook =
-    readedList.find(b => b.googleId === book.id)
-    || readedList.find(b => b.googleId === book.googleId)
-    || null
-  const readingBook =
-    readingList.find(b => b.googleId === book.id)
-    || readingList.find(b => b.googleId === book.googleId)
-    || null
+      readedList.find(b => b.googleId === book.id)
+      || readedList.find(b => b.googleId === book.googleId)
+      || null
+    const readingBook =
+      readingList.find(b => b.googleId === book.id)
+      || readingList.find(b => b.googleId === book.googleId)
+      || null
     return { readedBook, readingBook }
   }
 

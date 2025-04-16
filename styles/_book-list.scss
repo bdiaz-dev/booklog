@@ -30,6 +30,15 @@
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
+    
+    &[data-ismobile='true'] {
+      justify-content: space-between;
+      button {
+        // padding: 6px 14px;
+        line-height: 0;
+        font-size: .7rem;
+      }
+    }
   }
 
   ul {
@@ -38,6 +47,7 @@
 
     .li {
       display: flex;
+      // flex-direction: column;
       justify-content: space-between;
       align-items: center;
       padding: 0.5rem;

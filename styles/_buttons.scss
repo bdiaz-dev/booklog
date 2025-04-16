@@ -1,8 +1,11 @@
 @use 'variables' as *;
 
 .lists-buttons-container {
+  background-color: $background-color;
+  padding: 0.5rem 0.8rem;
+  z-index: 1000;
   position: sticky;
-  top: 3.8rem;
+  top: 3.2rem;
   display: flex;
   justify-content: space-between;
   gap: 1rem;
@@ -26,9 +29,9 @@
   bottom: 0vh; /* Alineado con la parte inferior */
   left: 0; /* Alineado con el borde izquierdo */
   right: 0; /* Alineado con el borde derecho */
-  padding: 0.5rem;
+  // padding: 0.5rem;
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: center; /* Asegura que los botones estén centrados verticalmente */
   background-color: rgba(128, 128, 128, 0.8); /* Fondo semitransparente */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
@@ -37,11 +40,11 @@
 
   button {
     flex-grow: 1; /* Los botones ocupan el mismo espacio */
-    margin: 0 0.5rem; /* Espaciado entre botones */
-    max-width: 150px; /* Limita el ancho máximo de los botones */
+    // margin: 0 0.5rem;
+    // max-width: 150px;
+    height: 38px;
     padding: 0.5rem; /* Ajusta el tamaño del botón */
     font-size: 1rem; /* Ajusta el tamaño del texto */
-    border-radius: 0.25rem; /* Bordes redondeados */
     background-color: #007bff; /* Color de fondo */
     color: white; /* Color del texto */
     border: none; /* Sin bordes */
@@ -179,6 +182,14 @@
     &:hover {
       background-color: adjust-color($active-color, $lightness: +10%);
     }
+  }
+  
+  &.disabled {
+    background-color: rgba(0, 0, 0, 0);
+    color: gray;
+    font-weight: bold;
+    border: gray 1px dashed;
+    cursor: not-allowed;
   }
 
   .book-count {

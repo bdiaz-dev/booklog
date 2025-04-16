@@ -21,6 +21,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
   const [showError, setShowError] = useState(false)
   const { useStateOfBook, loading, error } = useBookData()
   const { readedBook, readingBook } = useStateOfBook(book)
+  const [isStarted, setIsStarted] = useState(false)
   const isMobile = useIsMobile()
   const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(setShowError)
 
@@ -34,7 +35,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
       {showDeleteModal &&
         <ConfirmDeleteModal
           isDeleting={isDeleting}
-          onConfirm={ onConfirm }
+          onConfirm={onConfirm}
           onCancel={() => { setShowDeleteModal(false) }}
           title={book.title || book.volumeInfo?.title}
         />}
@@ -71,7 +72,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
               <img onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
             </div>
             <div>
-              <div className="book-item-info">
+              <div className="book-item-info" data-ismobile={isMobile}>
                 <span className="book-item-info-title" onClick={() => setShowInfo(!showInfo)}>{book.title || book.volumeInfo?.title}</span>
                 <span className="book-item-info-author">{book.author || (book.volumeInfo?.authors ? book.volumeInfo.authors.join(", ") : "Autor desconocido")}</span>
                 <button
@@ -80,25 +81,33 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
                 >
                   + Info
                 </button>
+                {readedBook?.isStarted &&
+                  <span className='book-item-user-info started'>
+                    📖 Empezado: {new Date(readedBook.startedDate).toLocaleDateString('es-ES')}
+                  </span>}
+                {readingBook?.isStarted &&
+                  <span className='book-item-user-info started'>
+                    📖 Empezado: {new Date(readingBook.startedDate).toLocaleDateString('es-ES')}
+                  </span>}
                 {readingBook &&
-                  <span className='book-item-user-info'>
-                    📚 Añadido el: {new Date(readingBook.addedDate).toLocaleDateString('es-ES')}
+                  <span className='book-item-user-info added'>
+                    📚 Añadido: {new Date(readingBook.addedDate).toLocaleDateString('es-ES')}
                   </span>}
                 {readedBook &&
-                  <span className='book-item-user-info'>
-                    ✅ Leído el: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
+                  <span className='book-item-user-info finished'>
+                    ✅ Terminado: {new Date(readedBook.readedDate).toLocaleDateString('es-ES')}
                     {readedBook.rating &&
                       <img src={ratingSvgEmojis[readedBook.rating as keyof typeof ratingSvgEmojis]} alt="ratingEmoji" />}
                   </span>}
               </div>
-              <div className="book-item-actions">
+              <div className={`book-item-actions ${isMobile ? "mobile" : ""}`}>
                 <>
                   {readingBook
                     ? <button
                       onClick={() => setShowFeedback(true)}
                       className="button secondary"
                     >
-                      Marcar como leído
+                      Empezado / Leído
                     </button>
                     : (!readedBook && (
                       <button
@@ -137,6 +146,7 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
               </div>
 
             </div>
+
           </motion.div>
 
         </motion.div>

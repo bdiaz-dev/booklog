@@ -3,6 +3,8 @@ export interface UserBook {
   title: string
   author: string
   googleId: string
+  isStarted: boolean
+  startedDate?: string | null
   isRead: boolean
   userId?: string
   readedDate?: string | null
