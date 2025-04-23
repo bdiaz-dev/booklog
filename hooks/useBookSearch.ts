@@ -31,7 +31,7 @@ export function useBookSearch() {
     try {
       const query = buildQuery();
       const response = await fetch(
-        `https://www.googleapis.com/books/v1/volumes?q=${query}&projection=full&startIndex=${customStartIndex}&maxResults=10&orderBy=relevance`
+        `https://www.googleapis.com/books/v1/volumes?q=${query}&projection=full&startIndex=${customStartIndex}&maxResults=10&orderBy=relevance&key=AIzaSyBEGnTwZ4gesOIgHHweXSysUklWWMx4EkM`
       );
       const data = await response.json();
 
@@ -87,7 +87,7 @@ export function useBookSearch() {
     setIsLoading(true)
     try {
       console.log(bookId)
-      const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}`)
+      const response = await fetch(`https://www.googleapis.com/books/v1/volumes/${bookId}?key=AIzaSyBEGnTwZ4gesOIgHHweXSysUklWWMx4EkM`)
       const data = await response.json()
       return data
     } catch (error) {
