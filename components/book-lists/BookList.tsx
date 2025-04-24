@@ -8,6 +8,7 @@ import { filterAndSortBooks } from '@/lib/listUtils'
 import SortButton from '@/components/interface/buttons/SortButton'
 import { UserBook } from '@/lib/types/types'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { BookItemProvider } from '@/context/BookItemContext'
 
 interface BookListProps {
   setIsLoading: (loading: boolean) => void
@@ -72,20 +73,20 @@ export default function BookList({ isReadingList, setIsLoading }: BookListProps)
           className={`button ${sortCriteria === "startedDate" ? "active" : "info"}`}
           onClick={() => setSortCriteria("startedDate")}
         >
-          Fecha Empezado
+          {`${isMobile ? '' : 'Fecha '}Empezado`}
         </button>
         {isReadingList
           ? (<button
             className={`button ${sortCriteria === "addedDate" ? "active" : "info"}`}
             onClick={() => setSortCriteria("addedDate")}
           >
-            Fecha Añadido
+            {`${isMobile ? '' : 'Fecha '}Añadido`}
           </button>)
           : (<button
             className={`button ${sortCriteria === "readedDate" ? "active" : "info"}`}
             onClick={() => setSortCriteria("readedDate")}
           >
-            Fecha Terminado
+            {`${isMobile ? '' : 'Fecha '}Terminado`}
           </button>)
         }
       </div>
@@ -102,7 +103,9 @@ export default function BookList({ isReadingList, setIsLoading }: BookListProps)
           <li
             key={book.googleId}
           >
-            <BookItem book={book} />
+            <BookItemProvider book={book}>
+              <BookItem book={book} />
+            </BookItemProvider>
           </li>
         ))}
         {/* </AnimatePresence> */}

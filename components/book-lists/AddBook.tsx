@@ -1,7 +1,8 @@
 "use client";
-import { useBookSearch } from "@/hooks/useBookSearch";
-import BookItem from "./BookItem";
-import { UserBook } from '@/lib/types/types';
+import { useBookSearch } from "@/hooks/useBookSearch"
+import BookItem from '@/components/book-lists/BookItem'
+import { UserBook } from '@/lib/types/types'
+import { BookItemProvider } from '@/context/BookItemContext'
 
 export default function AddBook() {
   const {
@@ -64,7 +65,9 @@ export default function AddBook() {
             <ul>
               {searchResults.map((book: UserBook) => (
                 <li key={book.id}>
-                  <BookItem book={book} isSearch />
+                  <BookItemProvider book={book}>
+                    <BookItem book={book} isSearch />
+                  </BookItemProvider>
                 </li>
               ))}
             </ul>

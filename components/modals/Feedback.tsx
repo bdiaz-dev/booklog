@@ -4,16 +4,21 @@ import { motion } from 'framer-motion'
 import { useFeedback } from '@/hooks/useFeedback'
 import { UserBook } from '@/lib/types/types'
 import { useIsMobile } from '@/hooks/use-mobile'
+import { useBookItemContext } from "@/context/BookItemContext";
+
 
 export interface FeedbackProps {
   book: UserBook
-  setShowFeedback: React.Dispatch<React.SetStateAction<boolean>>
-  setIsDeleting: (isDeleting: boolean) => void
   isGoogleSearch?: boolean
   handleError?: (() => void) | null
 }
 
-export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogleSearch = false, handleError = null }: FeedbackProps) {
+export default function Feedback({ book, isGoogleSearch = false, handleError = null }: FeedbackProps) {
+  
+    const {
+      setShowFeedback,
+    } = useBookItemContext();
+  
   const [isReaded, setIsReaded] = useState(!!book.isRead)
   const [readedToday, setReadedToday] = useState(true)
   const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
@@ -23,7 +28,7 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
   const [startedToday, setStartedToday] = useState(true)
   const [startedDate, setStartedDate] = useState(new Date().toISOString().split("T")[0])
 
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("")
   
   const isMobile = useIsMobile()
   const { handleFeedback, isLoading } = useFeedback(isGoogleSearch, handleError)
@@ -49,14 +54,14 @@ export default function Feedback({ book, setShowFeedback, setIsDeleting, isGoogl
 
   return (
     <motion.div
-      key="feddback-container"
+      key={`${book.id}feedback-modal-container`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className='feedback-modal'
     >
       <motion.div
-        key="feedback"
+        key={`${book.id}feedback-modal`}
         initial={{ scaleY: 0 }}
         animate={{ scaleY: 1 }}
         exit={{ scaleY: 0 }}

@@ -15,7 +15,7 @@ const useUsersRatings = (googleId: string) => {
   useEffect(() => {
     const fetchRatings = async () => {
       try {
-        const response = await fetch(`/api/ratings/${googleId}`);
+        const response = await fetch(`/api/ratings?googleId=${googleId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch ratings');
         }

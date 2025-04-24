@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '../../../../lib/prisma';
+import { prisma } from '../../../lib/prisma';
 
 interface RatingCount {
   wonderfull: number;
@@ -8,8 +8,8 @@ interface RatingCount {
   dislike: number;
 }
 
-export async function GET(req: NextRequest, { params }: { params: { googleId: string } }) {
-  const {googleId} = await params
+export async function GET(req: NextRequest) {
+  const {googleId} = Object.fromEntries(req.nextUrl.searchParams)
 
   if (!googleId) {
     return NextResponse.json({ error: 'Invalid googleId' }, { status: 400 });

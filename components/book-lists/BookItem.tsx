@@ -10,35 +10,55 @@ import InfoModal from '@/components/modals/InfoModal'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useIsMobile } from '@/hooks/use-mobile'
 import ConfirmDeleteModal from '@/components/modals/ConfirmDeleteModal'
-import Image from 'next/image'
+import { useBookItemContext } from "@/context/BookItemContext";
 
 export default function BookItem({ book, isSearch = false }: { book: any, isSearch?: boolean }) {
 
-  const [showInfo, setShowInfo] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [showFeedback, setShowFeedback] = useState(false)
+  const {
+    showInfo,
+    setShowInfo,
+    showDeleteModal,
+    setShowDeleteModal,
+    showFeedback,
+    setShowFeedback,
+    showError,
+    setShowError,
+    isDeleting,
+  } = useBookItemContext();
+
   const [isLoading, setIsLoading] = useState(false)
-  const [showError, setShowError] = useState(false)
   const { useStateOfBook, loading, error } = useBookData()
   const { readedBook, readingBook } = useStateOfBook(book)
-  const [isStarted, setIsStarted] = useState(false)
   const isMobile = useIsMobile()
-  const { handleAddBookClick, handleRemoveBookClick, handleError, isDeleting, setIsDeleting } = useBookActions(setShowError)
-
-  const onConfirm = async () => {
-    await handleRemoveBookClick(!!book.volumeInfo ? book.id : book.googleId, setIsLoading)
-    setShowDeleteModal(false)
-  }
+  const { handleAddBookClick, handleError } = useBookActions(setShowError)
 
   return (
     <AnimatePresence>
+
+      {/* // DELETE MODAL */}
       {showDeleteModal &&
         <ConfirmDeleteModal
-          isDeleting={isDeleting}
-          onConfirm={onConfirm}
-          onCancel={() => { setShowDeleteModal(false) }}
           title={book.title || book.volumeInfo?.title}
+          key={`${book.id}-delete`}
         />}
+      {/* // ------------- */}
+
+      {/* // FEEDBACK MODAL */}
+      {showFeedback &&
+        <Feedback
+          book={!!readingBook ? readingBook : readedBook}
+          key={`${book.id}-feedback`}
+        />}
+      {/* // ------------- */}
+
+      {/* // INFO MODAL */}
+      {showInfo &&
+        <InfoModal
+          book={book}
+          key={`${book.id}-info`}
+        />}
+      {/* // ------------- */}
+
       {!isDeleting && (
         <motion.div
           className='li'
@@ -50,6 +70,9 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
           exit={{ height: 0 }}
           transition={{ duration: 0.3 }}
         >
+
+
+
           <motion.div
             key={book.id + "item"}
             // layout={!isSearch}
@@ -59,16 +82,8 @@ export default function BookItem({ book, isSearch = false }: { book: any, isSear
             className='book-item'
             data-ismobile={isMobile}
           >
-            <AnimatePresence>
-              {showInfo && <InfoModal book={book} setShowInfo={setShowInfo} />}
-            </AnimatePresence>
             {showError && <ErrorAlert />}
-            <AnimatePresence>
-              // poner modal confirmando que se ha marcado como leido
-              {showFeedback && <Feedback book={!!readingBook ? readingBook : readedBook} setShowFeedback={setShowFeedback} setIsDeleting={setIsDeleting} />}
-            </AnimatePresence>
             <div className='book-item-img'>
-              {/* <Image width={60} height={70} onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} /> */}
               <img onClick={() => setShowInfo(!showInfo)} src={book.thumbnail || book.volumeInfo?.imageLinks?.thumbnail || placeholderImg} alt={book.title || book.volumeInfo?.title} />
             </div>
             <div>

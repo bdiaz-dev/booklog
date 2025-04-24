@@ -40,11 +40,23 @@
   }
 }
 
+.info-modal {
+  z-index: 1000;
+}
+
+.feedback-modal {
+  z-index: 1100;
+}
+
+.confirm-delete-modal {
+  z-index: 1100;
+}
+
 .info-modal,
 .feedback-modal,
 .confirm-delete-modal {
   position: fixed;
-  z-index: 1000;
+  // z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;

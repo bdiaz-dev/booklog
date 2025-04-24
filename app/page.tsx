@@ -6,8 +6,6 @@ import "@/public/books.svg"
 import UserListsContainer from '@/components/book-lists/UserListsContainer'
 import UserMenu from '@/components/interface/UserMenu'
 
-// discrimar acentos
-
 export default async function Home() {
   const session = await getServerSession(authOptions)
 

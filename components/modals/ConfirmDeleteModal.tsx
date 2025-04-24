@@ -1,28 +1,33 @@
 import React from "react";
-import {motion} from "framer-motion";
+import { motion } from "framer-motion";
+import { useBookItemContext } from '@/context/BookItemContext';
 
 interface ConfirmDeleteModalProps {
-  onConfirm?: () => void; 
-  onCancel?: () => void; 
-  isDeleting?: boolean;
   title: string
 }
 
-export default function ConfirmDeleteModal({ onConfirm, onCancel, isDeleting, title}: ConfirmDeleteModalProps) {
+export default function ConfirmDeleteModal({ title }: ConfirmDeleteModalProps) {
+  
+    const {
+      setShowDeleteModal,
+      onConfirm,
+      isDeleting
+    } = useBookItemContext();
+  
   return (
-    <motion.div 
-    className="confirm-delete-modal"
-    initial={{ opacity: 0}}
-    animate={{ opacity: 1}}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.3 }}
+    <motion.div
+      className="confirm-delete-modal"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
     >
       <motion.div
-      className="confirm-delete-modal-content"
-      initial={{ scaleY: 0 }}
-      animate={{ scaleY: 1 }}
-      exit={{ scaleY: 0 }}
-      transition={{ duration: 0.3 }}
+        className="confirm-delete-modal-content"
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        exit={{ scaleY: 0 }}
+        transition={{ duration: 0.3 }}
       >
         <h3>¿Estás seguro?</h3>
         <p>¿Realmente deseas eliminar <span>{title}</span>?</p>
@@ -31,7 +36,7 @@ export default function ConfirmDeleteModal({ onConfirm, onCancel, isDeleting, ti
           <button className="button danger" onClick={onConfirm}>
             {isDeleting ? "Eliminando..." : "Sí, eliminar"}
           </button>
-          <button className="button secondary" onClick={onCancel}>
+          <button className="button secondary" onClick={() => setShowDeleteModal(false)}>
             Cancelar
           </button>
         </div>
