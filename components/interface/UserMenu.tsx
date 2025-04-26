@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import DeployBox from './DeployBox'
 
 interface UserMenuProps {
   session: {
@@ -18,7 +19,7 @@ interface UserMenuProps {
 export default function UserMenu({ session }: UserMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   return (
-    <>
+    <div className='deploy-box-container'>
       <img
         className='user-avatar'
         onClick={() => { setIsMenuOpen(!isMenuOpen) }}
@@ -27,19 +28,13 @@ export default function UserMenu({ session }: UserMenuProps) {
       />
       <AnimatePresence>
         {isMenuOpen &&
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-            className='user-menu'
-          >
+          <DeployBox>
             <span className='user-menu-name'>{session.user.name}</span>
             <Link href="/api/auth/signout" className="button secondary">
               Cerrar Sesión
             </Link>
-          </motion.div>}
+          </DeployBox>}
       </AnimatePresence>
-    </>
+    </div>
   )
 }

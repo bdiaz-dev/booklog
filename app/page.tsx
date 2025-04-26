@@ -6,6 +6,8 @@ import "@/public/books.svg"
 import UserListsContainer from '@/components/book-lists/UserListsContainer'
 import UserMenu from '@/components/interface/UserMenu'
 
+// al tocar usar fecha de hoy cambiar check
+
 export default async function Home() {
   const session = await getServerSession(authOptions)
 

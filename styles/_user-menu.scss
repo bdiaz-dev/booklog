@@ -11,18 +11,25 @@
   }
 }
 
-.user-menu {
+.deploy-box-container {
+  position: relative;
+  
+}
+
+.deploy-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: start;
   gap: .5rem;
-  position: fixed;
-  top: 3.5rem;
+  position: absolute;
+  top: 2.8rem;
+  // top: 3.5rem;
   z-index: 5001;
   right: .8rem;
   padding: 1rem;
   border-radius: 10px;
+  width: max-content;
   background-color: white;
   
   &::before {
@@ -34,9 +41,10 @@
     border-bottom-color: white;
   }
   
-  &-name {
-    font-weight: bold;
-    font-size: 1.25rem;
-    font-style: italic;
-  }
+}
+
+.user-menu-name {
+  font-weight: bold;
+  font-size: 1.25rem;
+  font-style: italic;
 }

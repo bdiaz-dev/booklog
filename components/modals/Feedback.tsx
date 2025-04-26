@@ -113,7 +113,7 @@ export default function Feedback({ book, isGoogleSearch = false, handleError = n
               checked={startedToday}
               onChange={() => setStartedToday(!startedToday)}
             />
-            <span>{"Usar fecha de hoy"}</span>
+            <span onClick={() => setStartedToday(!startedToday)}>{"Usar fecha de hoy"}</span>
             {!startedToday && (
               <div className='feedback-modal-date-personal'>
                 <input
@@ -161,7 +161,7 @@ export default function Feedback({ book, isGoogleSearch = false, handleError = n
                 checked={readedToday}
                 onChange={() => setReadedToday(!readedToday)}
               />
-              <span>{"Usar fecha de hoy"}</span>
+              <span onClick={() => setReadedToday(!readedToday)}>{"Usar fecha de hoy"}</span>
               {!readedToday && (
                 <div className='feedback-modal-date-personal'>
                   <input

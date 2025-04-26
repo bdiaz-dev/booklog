@@ -3,14 +3,19 @@
 import { UserBook } from './types/types'
 
 export function filterAndSortBooks (
-  books : Array<UserBook>, searchTerm : string, sortCriteria : string, sortAscendent : boolean
+  books : Array<UserBook>, searchTerm : string, sortCriteria : string, sortAscendent : boolean, filters: Record<string, boolean>
 ) {
   const normalize = (str: string) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-  const filteredBooks = books.filter(
-    (book) =>
+  const filteredBooks = books.filter((book) => {
+    const matchesSearchTerm =
       normalize(book?.title ?? "").includes(normalize(searchTerm)) ||
-      normalize(book?.author ?? "").includes(normalize(searchTerm)),
-  )
+      normalize(book?.author ?? "").includes(normalize(searchTerm));
+
+    const matchesStartedFilter =
+      (filters.showStarted && book.isStarted) || (filters.showNoStarted && !book.isStarted);
+
+    return matchesSearchTerm && matchesStartedFilter;
+  });
   
   // book tupe
   const sortedBooks = filteredBooks.sort((a : UserBook, b : UserBook) => {

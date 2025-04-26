@@ -6,6 +6,7 @@ import { useState } from 'react';
 import AddBook from '@/components/book-lists/AddBook';
 import ScrollToTopButton from '@/components/interface/buttons/ScrollToTopButton';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { SortAndFilterProvider } from '@/context/SortAndFilterContext';
 
 export interface UserListsContainerProps {
   readBooksCount: number
@@ -82,7 +83,11 @@ export default function UserListsContainer({ readBooksCount, readingBooksCount }
         </>
       )}
       <div className="container" data-ismobile={isMobile}>
-        {!isAddingBook && <BookList isReadingList={isReadingList} setIsLoading={setIsLoading} />}
+        {!isAddingBook &&
+          <SortAndFilterProvider isReadingList={isReadingList}>
+            <BookList isReadingList={isReadingList} setIsLoading={setIsLoading} />
+          </SortAndFilterProvider>
+        }
         {isAddingBook && <AddBook />}
       </div>
     </BookDataProvider>
