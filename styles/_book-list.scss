@@ -39,6 +39,20 @@
         font-size: .7rem;
       }
     }
+    
+    // .config-filters-button {
+    //   ::after {
+    //     content: '';
+    //     display: inline-block;
+    //     width: 0.5rem;
+    //     height: 0.5rem;
+    //     background-color: $primary-color;
+    //     border-radius: 50%;
+    //     margin-right: 0.25rem;
+    //   }
+    //   &[data-filters='true'] {
+    //   }
+    // }
   }
 
   ul {

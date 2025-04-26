@@ -7,7 +7,7 @@ interface SortButtonProps {
 
 const SortButton: React.FC<SortButtonProps> = ({ isAscending, onClick }) => {
   return (
-    <button onClick={onClick} className="sort-button">
+    <button onClick={onClick} className="config-filters-button">
       {isAscending ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"

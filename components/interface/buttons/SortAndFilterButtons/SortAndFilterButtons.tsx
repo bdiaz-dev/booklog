@@ -47,10 +47,11 @@ export default function SortAndFilterButtons({ isReadingList }: { isReadingList:
               {`${isMobile ? '' : 'Fecha '}Añadido`}
             </button>
               <button
-                className='sort-button'
+                className='config-filters-button'
                 onClick={() => setShowFilters(!showFilters)}
+                data-filters={Object.values(filters).some((filter) => filter === false)}
               >
-                Filtros
+                {`Filtros${(Object.values(filters).some((filter) => filter === false)) ? ' 🔴' : ''}`}
               </button>
             <div className='deploy-box-container'>
 
