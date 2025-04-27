@@ -10,7 +10,7 @@
   justify-content: space-between;
   gap: 1rem;
   max-width: 600px;
-  margin: 0 auto; 
+  margin: 0 auto;
 
   button {
     display: flex;
@@ -25,37 +25,54 @@
 }
 
 .lists-mobile-buttons-container {
-  position: fixed; /* Fijo en la ventana */
-  bottom: 0vh; /* Alineado con la parte inferior */
-  left: 0; /* Alineado con el borde izquierdo */
-  right: 0; /* Alineado con el borde derecho */
+  position: fixed;
+  /* Fijo en la ventana */
+  bottom: 0vh;
+  /* Alineado con la parte inferior */
+  left: 0;
+  /* Alineado con el borde izquierdo */
+  right: 0;
+  /* Alineado con el borde derecho */
   // padding: 0.5rem;
   display: flex;
   // justify-content: space-between;
-  align-items: center; /* Asegura que los botones estén centrados verticalmente */
-  background-color: rgba(128, 128, 128, 0.8); /* Fondo semitransparente */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2); /* Añade una sombra para destacar */
-  overflow: hidden; /* Evita que el contenido provoque scroll */
+  align-items: center;
+  /* Asegura que los botones estén centrados verticalmente */
+  background-color: rgba(128, 128, 128, 0.8);
+  /* Fondo semitransparente */
+  z-index: 1000;
+  /* Asegura que esté por encima de otros elementos */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  /* Añade una sombra para destacar */
+  overflow: hidden;
+  /* Evita que el contenido provoque scroll */
 
   button {
-    flex-grow: 1; /* Los botones ocupan el mismo espacio */
+    flex-grow: 1;
+    /* Los botones ocupan el mismo espacio */
     // margin: 0 0.5rem;
     // max-width: 150px;
     height: 38px;
-    padding: 0.5rem; /* Ajusta el tamaño del botón */
-    font-size: 1rem; /* Ajusta el tamaño del texto */
-    background-color: #007bff; /* Color de fondo */
-    color: white; /* Color del texto */
-    border: none; /* Sin bordes */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    
+    padding: 0.5rem;
+    /* Ajusta el tamaño del botón */
+    font-size: 1rem;
+    /* Ajusta el tamaño del texto */
+    background-color: #007bff;
+    /* Color de fondo */
+    color: white;
+    /* Color del texto */
+    border: none;
+    /* Sin bordes */
+    cursor: pointer;
+    /* Cambia el cursor al pasar por encima */
+
     :first-child {
       margin-right: .5rem;
     }
 
     &:hover {
-      background-color: #0056b3; /* Color de fondo al pasar el cursor */
+      background-color: #0056b3;
+      /* Color de fondo al pasar el cursor */
     }
   }
 }
@@ -76,7 +93,7 @@
     // transform: scale(1.6);
     animation: celebrate 1s ease-in-out 1;
   }
-  
+
   &[data-discarted='true'] {
     filter: grayscale(1);
   }
@@ -119,10 +136,30 @@
   height: 100%;
   right: 6px;
   // transition: transform 0.1s ease;
-  
+
   &:hover {
     transform: scale(1.1);
     cursor: pointer;
+  }
+}
+
+.config-filters-button {
+  position: relative;
+  cursor: pointer;
+
+  &[data-filters='true'] {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: -0.4rem;
+      right: -0.7rem;
+      width: 0.8rem;
+      height: 0.8rem;
+      background-color: red;
+      border-radius: 50%;
+      margin-right: 0.25rem;
+    }
   }
 }
 
@@ -183,7 +220,7 @@
       background-color: adjust-color($active-color, $lightness: +10%);
     }
   }
-  
+
   &.disabled {
     background-color: rgba(0, 0, 0, 0);
     color: gray;
@@ -202,7 +239,7 @@
     color: black;
     border-radius: 50%;
   }
-  
+
   &.load-more {
     width: 100%;
   }

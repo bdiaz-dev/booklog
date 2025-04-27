@@ -2,6 +2,7 @@ import { filterAndSortBooks } from '@/lib/listUtils';
 import { UserBook } from '@/lib/types/types';
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useBookData } from './BookDataContext';
+import { useListContext } from './ListsContext';
 
 interface SortAndFilterContextProps {
   searchTerm: string
@@ -11,14 +12,18 @@ interface SortAndFilterContextProps {
   sortCriteria: string
   setSortCriteria: React.Dispatch<React.SetStateAction<string>>
   filters: { showStarted: boolean, showNoStarted: boolean }
-  setFilters: React.Dispatch<React.SetStateAction<{ showStarted: boolean, showNoStarted: boolean}>>
-  sortedBooks: Array<UserBook>;
+  setFilters: React.Dispatch<React.SetStateAction<{ showStarted: boolean, showNoStarted: boolean }>>
+  sortedBooks: Array<UserBook>
+  mode: string
+  setMode: React.Dispatch<React.SetStateAction<string>>
+  changeMode: () => void
 }
 
 const SortAndFilterContext = createContext<SortAndFilterContextProps | undefined>(undefined);
 
-export const SortAndFilterProvider: React.FC<{ children: React.ReactNode; isReadingList: boolean }> = ({ children, isReadingList }) => {
+export const SortAndFilterProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
+  const { isReadingList } = useListContext()
   const { readedList, readingList } = useBookData()
   const books = isReadingList ? readingList : readedList
   const [searchTerm, setSearchTerm] = useState("")
@@ -29,12 +34,21 @@ export const SortAndFilterProvider: React.FC<{ children: React.ReactNode; isRead
     showNoStarted: true
   })
   const sortedBooks = filterAndSortBooks(books, searchTerm, sortCriteria, sortAscendent, filters)
-  
-    useEffect(() => {
-      setSearchTerm("")
-      if (sortCriteria === "startedDate") return
-      setSortCriteria("title")
-    }, [isReadingList])
+  const [mode, setMode] = useState("full")
+
+  useEffect(() => {
+    setSearchTerm("")
+    if (sortCriteria === "startedDate") return
+    setSortCriteria("title")
+  }, [isReadingList])
+
+  const changeMode = () => {
+    if (mode === "full") {
+      setMode("list")
+    } else {
+      setMode("full")
+    }
+  }
 
   return (
     <SortAndFilterContext.Provider
@@ -47,7 +61,10 @@ export const SortAndFilterProvider: React.FC<{ children: React.ReactNode; isRead
         setSortCriteria,
         filters,
         setFilters,
-        sortedBooks
+        sortedBooks,
+        mode,
+        setMode,
+        changeMode
       }}
     >
       {children}

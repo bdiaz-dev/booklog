@@ -8,18 +8,22 @@ import { UserBook } from '@/lib/types/types'
 import { BookItemProvider } from '@/context/BookItemContext'
 import { useSortAndFilterContext } from '@/context/SortAndFilterContext'
 import SortAndFilterButtons from '../interface/buttons/SortAndFilterButtons/SortAndFilterButtons'
+import { useListContext } from '@/context/ListsContext'
+import BookItemListMode from './BookItemListMode'
 
 interface BookListProps {
   setIsLoading: (loading: boolean) => void
-  isReadingList?: boolean
 }
 
-export default function BookList({ isReadingList, setIsLoading }: BookListProps) {
+export default function BookList({ setIsLoading }: BookListProps) {
+  
+  const {isReadingList} = useListContext()
 
   const {
     searchTerm,
     setSearchTerm,
-    sortedBooks
+    sortedBooks,
+    mode
   } = useSortAndFilterContext()
 
   const {
@@ -53,7 +57,7 @@ export default function BookList({ isReadingList, setIsLoading }: BookListProps)
         </button>
       </div>
 
-      <SortAndFilterButtons isReadingList={!!isReadingList} />
+      <SortAndFilterButtons />
 
       <ul>
         {!sortedBooks.length &&
@@ -69,7 +73,8 @@ export default function BookList({ isReadingList, setIsLoading }: BookListProps)
             key={book.googleId}
           >
             <BookItemProvider book={book}>
-              <BookItem book={book} />
+              {mode === 'list' && <BookItemListMode book={book} />}
+              {mode === 'full' && <BookItem book={book} />}
             </BookItemProvider>
           </li>
         ))}

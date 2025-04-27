@@ -4,8 +4,10 @@ import SortButton from './SortButton'
 import DeployBox from '../../DeployBox'
 import { AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
+import FiltersAndView from './FiltersAndView'
+import { useListContext } from '@/context/ListsContext'
 
-export default function SortAndFilterButtons({ isReadingList }: { isReadingList: boolean }) {
+export default function SortAndFilterButtons() {
 
   const {
     searchTerm,
@@ -18,6 +20,8 @@ export default function SortAndFilterButtons({ isReadingList }: { isReadingList:
     setFilters,
     sortedBooks
   } = useSortAndFilterContext()
+
+  const { isReadingList } = useListContext()
 
   const isMobile = useIsMobile()
   const [showFilters, setShowFilters] = useState(false)
@@ -46,37 +50,6 @@ export default function SortAndFilterButtons({ isReadingList }: { isReadingList:
             >
               {`${isMobile ? '' : 'Fecha '}Añadido`}
             </button>
-              <button
-                className='config-filters-button'
-                onClick={() => setShowFilters(!showFilters)}
-                data-filters={Object.values(filters).some((filter) => filter === false)}
-              >
-                {`Filtros${(Object.values(filters).some((filter) => filter === false)) ? ' 🔴' : ''}`}
-              </button>
-            <div className='deploy-box-container'>
-
-              <AnimatePresence>
-                {showFilters &&
-                  <DeployBox>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={filters.showStarted}
-                        onChange={() => setFilters({ ...filters, showStarted: !filters.showStarted })}
-                      />
-                      Empezados
-                    </label>
-                    <label>
-                      <input
-                        type="checkbox"
-                        checked={filters.showNoStarted}
-                        onChange={() => setFilters({ ...filters, showNoStarted: !filters.showNoStarted })}
-                      />
-                      No empezados
-                    </label>
-                  </DeployBox>}
-              </AnimatePresence>
-            </div>
           </>
         )
         : (<button
@@ -86,6 +59,14 @@ export default function SortAndFilterButtons({ isReadingList }: { isReadingList:
           {`${isMobile ? '' : 'Fecha '}Terminado`}
         </button>)
       }
+      <button
+        className='config-filters-button'
+        onClick={() => setShowFilters(!showFilters)}
+        data-filters={Object.values(filters).some((filter) => filter === false)}
+      >
+        Vista
+      </button>
+      <FiltersAndView showFilters={showFilters} />
     </div>
   )
 }

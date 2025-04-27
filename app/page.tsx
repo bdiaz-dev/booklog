@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "./api/auth/[...nextauth]/route"
 import { prisma } from "@/lib/prisma"
 import "@/public/books.svg"
-import UserListsContainer from '@/components/book-lists/UserListsContainer'
+import ListsContainer from '@/components/book-lists/ListsContainer'
 import UserMenu from '@/components/interface/UserMenu'
 
 // al tocar usar fecha de hoy cambiar check
@@ -16,7 +16,7 @@ export default async function Home() {
       <div className="home-page start">
         <div className='title'>
           <img src="/books.svg" alt="title image" width={80} height={80} />
-        <h1>EchoBook</h1>
+          <h1>EchoBook</h1>
         </div>
         <p>Registra aqui todos los libros que tienes pensado leer, y marca los que has leido.</p>
         <p>No vuelvas a olvidar nunca aquel libro que tenias pendiente de leer.</p>
@@ -50,7 +50,7 @@ export default async function Home() {
           Cerrar Sesión
         </Link> */}
       </header>
-      <UserListsContainer readBooksCount={readBooks} readingBooksCount={unreadBooks} />
+        <ListsContainer readBooksCount={readBooks} readingBooksCount={unreadBooks} />
 
     </div>
   )
