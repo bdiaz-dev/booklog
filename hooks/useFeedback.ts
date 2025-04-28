@@ -1,28 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useBookData } from '@/context/BookDataContext';
 import { useMarkAsRead } from '@/hooks/useMarkAsRead';
 import { UserBook } from '@/lib/types/types';
 import { useMarkStarted } from './useMarkStarted';
 
 export interface HandleFeedbackProps {
-  book: UserBook
+  // book: UserBook
   response: string
-  isReaded: boolean
-  startedDate: string
-  readedDate: string
+  // isReaded: boolean
+  // startedDate: string
+  // readedDate: string
   setShowFeedback: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 // actualizar componente de feedback para que use el nuevo hook
 
-export function useFeedback(isGoogleSearch: boolean, handleError: (() => void) | null) {
+export function useFeedback(book: UserBook, isGoogleSearch: boolean, handleError: (() => void) | null) {
   const [isLoading, setIsLoading] = useState(false)
   const { handleMarkAsRead } = useMarkAsRead()
   const { handleMarkStarted } = useMarkStarted()
   const { readedList, setReadedList, readingList, setReadingList } = useBookData()
+  const [isReaded, setIsReaded] = useState(!!book.isRead)
+  const [readedToday, setReadedToday] = useState(true)
+  const [readedDate, setReadedDate] = useState(new Date().toISOString().split("T")[0])
+  const [isStarted, setIsStarted] = useState(!!book.isStarted)
+  const [startedToday, setStartedToday] = useState(true)
+  const [startedDate, setStartedDate] = useState(new Date().toISOString().split("T")[0])
 
+    useEffect(() => {
+      if (book.isStarted) {
+        const actualDate = new Date(book.startedDate ?? new Date()).toISOString().split("T")[0]
+        setStartedDate(actualDate)
+        setStartedToday(false)
+      }
+      if (book.isRead) {
+        const actualDate = new Date(book.readedDate ?? new Date()).toISOString().split("T")[0]
+        setReadedDate(actualDate)
+        setReadedToday(false)
+      }
+    }, [book])
+    
+    useEffect(() => {
+      if (isReaded && !isStarted) {
+        setIsStarted(true)
+      }
+    }, [isReaded])
 
-  const handleFeedback = async ({ book, response, isReaded, startedDate, readedDate, setShowFeedback }: HandleFeedbackProps) => {
+  const handleFeedback = async ({ 
+    // book, 
+    response, 
+    // isReaded, startedDate, readedDate, 
+    setShowFeedback 
+  }: HandleFeedbackProps) => {
     setIsLoading(true);
     const bookid = isGoogleSearch ? book.id : book.googleId
 
@@ -98,5 +127,20 @@ export function useFeedback(isGoogleSearch: boolean, handleError: (() => void) |
     setShowFeedback(false);
   };
 
-  return { handleFeedback, isLoading };
+  return {
+    handleFeedback,
+    isLoading,
+    isReaded,
+    setIsReaded,
+    readedToday,
+    setReadedToday,
+    readedDate,
+    setReadedDate,
+    isStarted,
+    setIsStarted,
+    startedToday,
+    setStartedToday,
+    startedDate,
+    setStartedDate,
+  };
 }

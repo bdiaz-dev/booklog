@@ -9,6 +9,7 @@ import { useBookActions } from '@/hooks/useBookActions'
 import { useIsMobile } from '@/hooks/use-mobile'
 import { UserBook } from '@/lib/types/types'
 import { useBookItemContext } from "@/context/BookItemContext";
+import CloseModal from './generalParts/CloseModal'
 
 export default function InfoModal({ book }: { book: UserBook }) {
 
@@ -61,7 +62,8 @@ export default function InfoModal({ book }: { book: UserBook }) {
         exit={{ scaleY: 0 }}
         className="info-modal-content"
       >
-        <span className="close" onClick={() => setShowInfo(false)}>&times;</span>
+        {/* <span className="close" onClick={() => setShowInfo(false)}>&times;</span> */}
+        <CloseModal closeModal={() => setShowInfo(false)} />
         <div className="info-modal-body">
           <div className="info-modal-image" data-ismobile={isMobile}>
             <img src={formatedBookData.image || placeholderImg} alt="Book cover" />

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 import { placeholderImg, ratingSvgEmojis } from '@/lib/constants'
-import Feedback from '@/components/modals/Feedback'
+import Feedback from '@/components/modals/feedback/Feedback'
 import ErrorAlert from '@/components/interface/ErrorAlert'
 import { useBookActions } from '@/hooks/useBookActions'
 import { useBookData } from '@/context/BookDataContext'
